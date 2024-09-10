@@ -1,11 +1,10 @@
-// components/PomodoroTimer.js
-
 "use client";
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';  // Asegúrate de importar los estilos de Toastify
 import UserCard from './UserCard';
-import UserToast from './Toast';
+import UserJoinedToast from './JoinToast';  // Asegúrate de que este nombre es correcto
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -31,12 +30,13 @@ const PomodoroTimer = () => {
     });
 
     socketIo.on('user_joined', (users) => {
-      setNewUser(users[Object.keys(users).pop()]);
+      const joinedUser = users[Object.keys(users).pop()];
+      setNewUser(joinedUser);  // Actualizamos el estado con el nuevo usuario
       setUsers(users);
     });
 
     socketIo.on('user_left', (users) => {
-      setUsers(users);
+      setUsers(users);  // Actualizamos la lista de usuarios al desconectarse uno
     });
 
     return () => {
@@ -95,7 +95,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); //Actualizo aquí para testear break time
+    setMinutes(25); 
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
@@ -108,7 +108,7 @@ const PomodoroTimer = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-      <UserToast />
+      <ToastContainer />  {/* Contenedor para los toasts */}
       <h1 className="text-nowrap">
         {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
       </h1>
@@ -137,7 +137,7 @@ const PomodoroTimer = () => {
           ))}
         </div>
       </div>
-      {newUser && <UserToast user={newUser} />}
+      {newUser && <UserJoinedToast user={newUser} />}  {/* Mostramos el toast cuando se une un nuevo usuario */}
     </div>
   );
 };

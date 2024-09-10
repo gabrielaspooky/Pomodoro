@@ -7,12 +7,12 @@ const UserCard = ({ userId }) => {
         <img
           src={`https://www.purina.es/sites/default/files/2021-02/BREED%20Hero_0095_pomeranian.jpg`} 
           alt="Avatar"
-          className="w-16 h-16 rounded-full border-4 border-white shadow-md object-cover"
+          className="w-16 h-16 rounded-full border-20 border-blue-400 border-solid shadow-md object-cover"
         />
       </div>
       <div className="ml-6">
         <h2 className="text-2xl font-bold text-gray-900">{userId}</h2>
-        <p className="text-sm text-gray-500 mt-1">Usuario activo</p>
+        <p className="text-sm text-pink-500 mt-1">Usuario activo</p>
       </div>
     </div>
   );
