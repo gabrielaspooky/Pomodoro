@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import UserCard from './UserCard';
 import UserToast from './Toast';
 
@@ -14,9 +13,9 @@ const PomodoroTimer = () => {
   const [isActive, setIsActive] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [room] = useState('your-room-id'); // Cambia esto a una sala específica si es necesario
+  const [room] = useState('your-room-id');
   const [users, setUsers] = useState({});
-  const [newUser, setNewUser] = useState(null); // Usuario recién unido
+  const [newUser, setNewUser] = useState(null);
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
@@ -32,7 +31,7 @@ const PomodoroTimer = () => {
     });
 
     socketIo.on('user_joined', (users) => {
-      setNewUser(users[Object.keys(users).pop()]); // Obtener el último usuario que se unió
+      setNewUser(users[Object.keys(users).pop()]);
       setUsers(users);
     });
 
@@ -96,7 +95,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25);
+    setMinutes(25); //Actualizo aquí para testear break time
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
@@ -108,29 +107,31 @@ const PomodoroTimer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
-      <ToastContainer />
-      <h1 className="text-4xl font-bold mb-8">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
+      <UserToast />
+      <h1 className="text-nowrap">
         {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
       </h1>
-      <div className="text-6xl font-mono mb-4">
+      <div className="text-6xl font-mono mb-6 text-white drop-shadow-lg transition-transform duration-300 transform hover:scale-105">
         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
       </div>
-      <button
-        onClick={toggleTimer}
-        className={`bg-${isActive ? 'red' : 'green'}-500 text-white p-2 rounded-lg`}
-      >
-        {isActive ? 'Pause' : 'Start'}
-      </button>
-      <button
-        onClick={resetTimer}
-        className="bg-gray-500 text-white p-2 rounded-lg mt-4"
-      >
-        Reset
-      </button>
-      <div className="mt-8 w-full max-w-md flex flex-col text-center">
-        <h2 className="text-2xl font-semibold mb-4">Usuarios en la sala:</h2>
-        <div className="flex flex-col gap-4">
+      <div className="flex space-x-4">
+        <button
+          onClick={toggleTimer}
+          className={`bg-${isActive ? 'red' : 'green'}-500 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:bg-${isActive ? 'red' : 'green'}-600 transition-colors duration-200 transform hover:scale-105`}
+        >
+          {isActive ? 'Pause' : 'Start'}
+        </button>
+        <button
+          onClick={resetTimer}
+          className="bg-gray-500 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:bg-gray-600 transition-colors duration-200 transform hover:scale-105"
+        >
+          Reset
+        </button>
+      </div>
+      <div className="mt-12 w-full max-w-2xl text-center">
+        <h2 className="text-2xl font-bold text-white mb-4">Usuarios en la sala:</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {Object.values(users).map(user => (
             <UserCard key={user.id} user={user} />
           ))}
