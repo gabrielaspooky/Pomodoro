@@ -9,3 +9,43 @@
   padding: 0;
   font-family: inherit;
 }
+
+/* globals.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Outfit', sans-serif; /* Asegúrate de que la fuente Outfit esté aplicada */
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.ml-64 {
+  margin-left: 16rem; /* Ajusta esto según el ancho de tu Navbar */
+}
+
+.p-6 {
+  padding: 1.5rem; /* Ajusta el padding según tus necesidades */
+}
+
+.fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.z-50 {
+  z-index: 50;
+}

@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef } from 'react';  // Agregar useRef para una bandera
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,7 +22,7 @@ const UserJoinedToast = ({ user }) => {
     }
   }, [user]);
 
-  return null;  // El componente no renderiza nada
+  return null;  
 };
 
 export default UserJoinedToast;

@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';  // Asegúrate de importar los estilos de Toastify
 import UserCard from './UserCard';
-import UserJoinedToast from './JoinToast';  // Asegúrate de que este nombre es correcto
+import UserJoinedToast from './JoinToast';
+import UserLeftToast from './LeaveToast';  
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -15,6 +15,7 @@ const PomodoroTimer = () => {
   const [room] = useState('your-room-id');
   const [users, setUsers] = useState({});
   const [newUser, setNewUser] = useState(null);
+  const [userLeft, setUserLeft] = useState(null);
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
@@ -30,13 +31,18 @@ const PomodoroTimer = () => {
     });
 
     socketIo.on('user_joined', (users) => {
-      const joinedUser = users[Object.keys(users).pop()];
-      setNewUser(joinedUser);  // Actualizamos el estado con el nuevo usuario
+      const userIds = Object.keys(users);
+      const latestUserId = userIds[userIds.length - 1];
+      setNewUser(users[latestUserId]);
       setUsers(users);
     });
 
-    socketIo.on('user_left', (users) => {
-      setUsers(users);  // Actualizamos la lista de usuarios al desconectarse uno
+    socketIo.on('user_left', (user) => {
+      setUserLeft(user);
+      setUsers((prevUsers) => {
+        const { [user.id]: _, ...newUsers } = prevUsers;
+        return newUsers;
+      });
     });
 
     return () => {
@@ -95,7 +101,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); 
+    setMinutes(25);
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
@@ -108,7 +114,7 @@ const PomodoroTimer = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-      <ToastContainer />  {/* Contenedor para los toasts */}
+      <ToastContainer />
       <h1 className="text-nowrap">
         {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
       </h1>
@@ -137,7 +143,8 @@ const PomodoroTimer = () => {
           ))}
         </div>
       </div>
-      {newUser && <UserJoinedToast user={newUser} />}  {/* Mostramos el toast cuando se une un nuevo usuario */}
+      {newUser && <UserJoinedToast user={newUser} />}
+      {userLeft && <UserLeftToast user={userLeft} />}
     </div>
   );
 };
