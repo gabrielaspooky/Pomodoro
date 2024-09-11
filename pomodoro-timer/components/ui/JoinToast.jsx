@@ -12,7 +12,7 @@ const UserJoinedToast = ({ user }) => {
       toast.success(`${user.name || 'Un usuario'} se ha unido a la sala!`, {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

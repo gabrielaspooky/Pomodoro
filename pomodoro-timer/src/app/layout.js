@@ -2,6 +2,7 @@ import { Outfit } from 'next/font/google';
 import './globals.css';
 import Navbar from '../../components/ui/Navbar';
 
+
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata = {

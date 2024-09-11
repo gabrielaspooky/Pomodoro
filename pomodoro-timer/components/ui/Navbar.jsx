@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
-import { FaHome, FaInfoCircle, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,11 +46,11 @@ const Navbar = () => {
           </a>
           <a href="#about" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
-            <span className="text-lg">Acerca de</span>
+            <span className="text-lg">FAQ's</span>
           </a>
           <a href="#contact" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
-            <FaEnvelope className="mr-3" />
-            <span className="text-lg">Contacto</span>
+            <FaArrowLeft className="mr-3" />
+            <span className="text-lg">Abandonar la sesión</span>
           </a>
         </div>
       </div>
@@ -65,11 +65,11 @@ const Navbar = () => {
           </a>
           <a href="#about" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
-            <span className="text-lg">Acerca de</span>
+            <span className="text-lg">FAQ's</span>
           </a>
           <a href="#contact" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
-            <FaEnvelope className="mr-3" />
-            <span className="text-lg">Contacto</span>
+            <FaArrowLeft className="mr-3" />
+            <span className="text-lg">Abandonar la sesión</span>
           </a>
         </div>
       </div>
