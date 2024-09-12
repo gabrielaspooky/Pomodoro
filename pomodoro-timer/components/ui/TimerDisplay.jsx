@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import UserCard from './UserCard';
 import UserJoinedToast from './JoinToast';
 import UserLeftToast from './LeaveToast';  
+import Pom from './Pom';
+import MemoryMatch from './MemoryMatch';
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -101,7 +103,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25);
+    setMinutes(25); // Cambia aquí a 0 o a 25 para testear, según el caso
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
@@ -116,7 +118,7 @@ const PomodoroTimer = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
       <ToastContainer />
       <h1 className="text-nowrap">
-        {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
+        {isBreak ? 'Break Time!' && <MemoryMatch /> : 'Pomodoro Timer'}
       </h1>
       <div className="text-6xl font-mono mb-6 text-white drop-shadow-lg transition-transform duration-300 transform hover:scale-105">
         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}

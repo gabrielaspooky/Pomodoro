@@ -49,3 +49,9 @@ html, body {
 .z-50 {
   z-index: 50;
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
