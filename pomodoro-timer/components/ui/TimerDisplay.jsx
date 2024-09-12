@@ -103,7 +103,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); // Cambia aquí a 0 o a 25 para testear, según el caso
+    setMinutes(0); // Cambia aquí a 0 o a 25 para testear, según el caso
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {

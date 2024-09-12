@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
-import { Shuffle, X } from "lucide-react"
+import { Shuffle, X, CircleHelp } from "lucide-react"
 
 const CARD_IMAGES = [
   'https://i.imgur.com/8kAjg6s.jpeg',  // Pomerania 1
@@ -67,9 +67,11 @@ export default function MemoryMatch() {
     }
   }
 
+  const allPairsFound = matchedPairs === CARD_IMAGES.length
+
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>Open Memory Match</Button>
+      <Button onClick={() => setIsModalOpen(true)}>¡Juega con Pom!</Button>
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -81,33 +83,35 @@ export default function MemoryMatch() {
               <X className="w-6 h-6" />
             </button>
 
-            <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">Memory Match</h2>
-              <Button size="sm" onClick={initializeGame}>
-                <Shuffle className="mr-2 h-4 w-4" /> Shuffle
+            <div className="text-center whitespace-nowrap">
+              <h2 className="text-2xl font-semibold mb-4 justify-center">¡Entrena tu memoria!</h2>
+              <div className="flex align-middle justify-start">
+              <Button size="sm justify-end flex" onClick={initializeGame}>
+                <Shuffle className="mr-2 h-4 w-4 text-center flex flex-col" /> Nueva partida
               </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-4 gap-2 mt-4">
               {cards.map((card) => (
                 <div
                   key={card.id}
-                  className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-300 ${
-                    card.flipped || card.matched ? 'bg-blue-500' : 'bg-gray-300'
+                  className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-200 ${
+                    card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-300'
                   }`}
                   onClick={() => handleCardClick(card.id)}
                 >
                   {card.flipped || card.matched ? (
                     <img src={card.image} alt="Pomerania" className="w-full h-full object-cover rounded-lg" />
                   ) : (
-                    '?'
+                    <CircleHelp className="text-[#815ef3]"/>
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 text-center">
-              Matched Pairs: {matchedPairs} / {CARD_IMAGES.length}
+            <div className={`mt-4 text-center ${allPairsFound ? 'animate-pulse text-[#eeac6d] text-lg' : ''}`}>
+              Poms encontrados: {matchedPairs} / {CARD_IMAGES.length}
             </div>
           </div>
         </div>
