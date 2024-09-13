@@ -5,6 +5,8 @@ import Pom from '../../components/ui/Pom';
 import TimerDisplay from '../../components/ui/TimerDisplay';
 import UserNameForm from '../../components/ui/UserNameForm';
 import MemoryMatch from '../../components/ui/MemoryMatch.tsx';
+import BreakTimeModal from '../../components/ui/BreakTimeModal';
+import JokeFetcher from '../../components/ui/JokerFetcher';
 
 
 const Home = () => {
@@ -17,6 +19,8 @@ const Home = () => {
       <TimerDisplay />
       <UserNameForm />
       <MemoryMatch />
+      <BreakTimeModal />
+      <JokeFetcher />
     </div>
     </ChakraProvider>
   );

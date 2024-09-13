@@ -20,7 +20,7 @@ export default function MemoryMatch() {
   const [cards, setCards] = useState([])
   const [flippedCards, setFlippedCards] = useState([])
   const [matchedPairs, setMatchedPairs] = useState(0)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isGameModalOpen, setIsGameModalOpen] = useState(false)
 
   useEffect(() => {
     initializeGame()
@@ -71,14 +71,14 @@ export default function MemoryMatch() {
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>¡Juega con Pom!</Button>
+      <Button onClick={() => setIsGameModalOpen(true)}>¡Juega con Pom!</Button>
 
-      {isModalOpen && (
+      {isGameModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white w-96 p-6 rounded-lg relative">
             <button 
               className="absolute top-2 right-2 text-gray-700 hover:text-gray-900" 
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => setIsGameModalOpen(false)}
             >
               <X className="w-6 h-6" />
             </button>

@@ -1,12 +1,12 @@
-import React from 'react'
-import UserNameForm from "../../../../components/ui/UserNameForm"
+// import React from 'react'
+// import UserNameForm from "../../../../components/ui/UserNameForm"
 
-const setUserName = () => {
-  return (
-    <div>
-      <UserNameForm />
-    </div>
-  )
-}
+// const setUserName = () => {
+//   return (
+//     <div>
+//       <UserNameForm />
+//     </div>
+//   )
+// }
 
-export default setUserName
+// export default setUserName
