@@ -69,7 +69,7 @@ export default function MemoryMatch() {
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>¡Juega con Pom!</Button>
+      <Button onClick={() => setIsGameModalOpen(true)}>¡Juega con Pom!</Button>
 
       {isGameModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -82,9 +82,9 @@ export default function MemoryMatch() {
             </button>
 
             <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">Memory Match</h2>
+              <h2 className="text-2xl font-semibold mb-4">Juega con Pom</h2>
               <Button size="sm" onClick={initializeGame}>
-                <Shuffle className="mr-2 h-4 w-4" /> Shuffle
+                <Shuffle className="mr-2 h-4 w-4" /> Nueva partida
               </Button>
             </div>
 
@@ -93,7 +93,7 @@ export default function MemoryMatch() {
                 <div
                   key={card.id}
                   className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-300 ${
-                    card.flipped || card.matched ? 'bg-blue-500' : 'bg-gray-300'
+                    card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-300'
                   }`}
                   onClick={() => handleCardClick(card.id)}
                 >
@@ -107,7 +107,7 @@ export default function MemoryMatch() {
             </div>
 
             <div className="mt-4 text-center">
-              Matched Pairs: {matchedPairs} / {CARD_IMAGES.length}
+              Poms encontrados: {matchedPairs} / {CARD_IMAGES.length}
             </div>
           </div>
         </div>

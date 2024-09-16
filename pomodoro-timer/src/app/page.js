@@ -7,6 +7,11 @@ import UserNameForm from '../../components/ui/UserNameForm';
 import MemoryMatch from '../../components/ui/MemoryMatch.tsx';
 import BreakTimeModal from '../../components/ui/BreakTimeModal';
 import JokeFetcher from '../../components/ui/JokerFetcher';
+import ApiFetcher from '../../components/ApiFetcher';
+import SetDailyTask from '../../components/ui/DailyTask';
+import PomodoroFaq from '../../components/ui/PomodoFAQs';
+
+
 
 
 const Home = () => {
@@ -21,6 +26,9 @@ const Home = () => {
       <MemoryMatch />
       <BreakTimeModal />
       <JokeFetcher />
+    <ApiFetcher />
+    <SetDailyTask />
+    <PomodoroFaq />
     </div>
     </ChakraProvider>
   );

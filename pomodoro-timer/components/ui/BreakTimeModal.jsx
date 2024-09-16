@@ -18,7 +18,11 @@ export default function BreakTimeModal() {
 
   return (
     <>
-      <Button onClick={() => setIsBreakTimeModalOpen(true)}>¿Qué quieres hacer?</Button>
+      <Button 
+      onClick={() => setIsBreakTimeModalOpen(true)}
+      >
+        ¿Qué quieres hacer?
+      </Button>
 
       {isBreakTimeModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
