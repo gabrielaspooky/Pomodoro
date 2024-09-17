@@ -86,4 +86,3 @@ const Navbar = ({ onLeave }) => {  // Recibimos la prop onLeave
 };
 
 export default Navbar;
-a
