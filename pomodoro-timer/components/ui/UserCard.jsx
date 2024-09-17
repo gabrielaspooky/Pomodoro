@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserCard = ({ userId }) => {
+const UserCard = ({ userId, activity }) => {
   return (
     <div className="flex items-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out">
       <div className="flex-shrink-0">
@@ -12,7 +12,8 @@ const UserCard = ({ userId }) => {
       </div>
       <div className="ml-6">
         <h2 className="text-2xl font-bold text-gray-900">{userId}</h2>
-        <p className="text-sm text-pink-500 mt-1">Usuario activo</p>
+        <p className="text-sm text-blue-500 mt-1">Gabriela</p>
+        <p className="text-sm text-blue-500 mt-1">está {activity ? activity : 'estudiando'}</p>
       </div>
     </div>
   );

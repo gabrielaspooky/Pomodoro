@@ -27,7 +27,7 @@ const Navbar = () => {
       <div className="fixed top-0 left-0 p-4 z-50 md:hidden">
         <button 
           onClick={toggleMenu} 
-          className="text-white bg-purple-500 p-2 rounded-full hover:bg-purple-600 transition-colors duration-200"
+          className="text-white bg-yellow-500 p-2 rounded-full hover:bg-yellow-600 transition-colors duration-200"
         >
           {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
@@ -48,7 +48,7 @@ const Navbar = () => {
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
-          <a href="#contact" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          <a href="#leave" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaArrowLeft className="mr-3" />
             <span className="text-lg">Abandonar la sesión</span>
           </a>
@@ -67,7 +67,7 @@ const Navbar = () => {
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
-          <a href="#contact" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          <a href="#leave" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaArrowLeft className="mr-3" />
             <span className="text-lg">Abandonar la sesión</span>
           </a>

@@ -41,9 +41,12 @@ const PomodoroTimer = () => {
 
     socketIo.on('user_left', (user) => {
       setUserLeft(user);
+
+     
       setUsers((prevUsers) => {
-        const { [user.id]: _, ...newUsers } = prevUsers;
-        return newUsers;
+        const updatedUsers = { ...prevUsers };
+        delete updatedUsers[user.id]; 
+        return updatedUsers;
       });
     });
 
@@ -103,7 +106,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(0); // Cambia aquí a 0 o a 25 para testear, según el caso
+    setMinutes(25); // Cambia aquí a 0 o a 25 para testear, según el caso
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
