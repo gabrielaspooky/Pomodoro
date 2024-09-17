@@ -5,8 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import UserCard from './UserCard';
 import UserJoinedToast from './JoinToast';
 import UserLeftToast from './LeaveToast';  
-import Pom from './Pom';
 import MemoryMatch from './MemoryMatch';
+import Navbar from './Navbar';
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -23,15 +23,10 @@ const PomodoroTimer = () => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
     setSocket(socketIo);
 
+    // Unirse a la sala
     socketIo.emit('join_room', room);
 
-    socketIo.on('timer_update', (data) => {
-      setMinutes(data.minutes);
-      setSeconds(data.seconds);
-      setIsActive(data.isActive);
-      setIsBreak(data.isBreak);
-    });
-
+    // Cuando un usuario se une
     socketIo.on('user_joined', (users) => {
       const userIds = Object.keys(users);
       const latestUserId = userIds[userIds.length - 1];
@@ -39,60 +34,68 @@ const PomodoroTimer = () => {
       setUsers(users);
     });
 
+    // Cuando un usuario se va (por desconexión o botón)
     socketIo.on('user_left', (user) => {
-      setUserLeft(user);
-
-     
+      setUserLeft(user);  // Guardamos al usuario que salió
       setUsers((prevUsers) => {
-        const updatedUsers = { ...prevUsers };
-        delete updatedUsers[user.id]; 
-        return updatedUsers;
+        const { [user.id]: _, ...newUsers } = prevUsers;
+        return newUsers;
       });
     });
 
-    return () => {
-      socketIo.disconnect();
-    };
-  }, [room]);
+ // Manejar desconexión
+ return () => {
+  socketIo.emit('leave_room', room);
+  socketIo.disconnect();
+};
+}, [room]);
+
+const handleLeaveRoom = () => {
+socket?.emit('leave_room', room);
+socket?.disconnect();
+// Aquí puedes agregar un redireccionamiento o lógica adicional si es necesario
+};
 
   useEffect(() => {
     let interval = null;
 
     if (isActive) {
       interval = setInterval(() => {
-        if (seconds === 0) {
-          if (minutes === 0) {
-            if (!isBreak) {
-              setIsBreak(true);
-              setMinutes(5);
-              setSeconds(0);
+        setSeconds((prevSeconds) => {
+          if (prevSeconds === 0) {
+            if (minutes === 0) {
+              if (!isBreak) {
+                setIsBreak(true);
+                setMinutes(5);
+                return 0;
+              } else {
+                setIsBreak(false);
+                setMinutes(25);
+                return 0;
+              }
             } else {
-              setIsBreak(false);
-              setMinutes(25);
-              setSeconds(0);
+              setMinutes((prevMinutes) => prevMinutes - 1);
+              return 59;
             }
           } else {
-            setMinutes(minutes - 1);
-            setSeconds(59);
+            return prevSeconds - 1;
           }
-        } else {
-          setSeconds(seconds - 1);
-        }
+        });
 
         socket?.emit('update_timer', {
           minutes,
           seconds,
           isActive,
-          isBreak
+          isBreak,
         });
 
       }, 1000);
-    } else if (!isActive && (minutes !== 25 || seconds !== 0)) {
+    } else {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [isActive, seconds, minutes, isBreak, socket]);
+  }, [isActive, minutes, seconds, isBreak, socket]);
 
   const toggleTimer = () => {
     setIsActive(!isActive);
@@ -100,29 +103,31 @@ const PomodoroTimer = () => {
       minutes,
       seconds,
       isActive: !isActive,
-      isBreak
+      isBreak,
     });
   };
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); // Cambia aquí a 0 o a 25 para testear, según el caso
+    setMinutes(25);
     setSeconds(0);
     setIsBreak(false);
     socket?.emit('update_timer', {
       minutes: 25,
       seconds: 0,
       isActive: false,
-      isBreak: false
+      isBreak: false,
     });
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
+    <Navbar onLeave={handleLeaveRoom} />
       <ToastContainer />
       <h1 className="text-nowrap">
-        {isBreak ? 'Break Time!' && <MemoryMatch /> : 'Pomodoro Timer'}
+        {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
       </h1>
+      {isBreak && <MemoryMatch />}
       <div className="text-6xl font-mono mb-6 text-white drop-shadow-lg transition-transform duration-300 transform hover:scale-105">
         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
       </div>
@@ -143,8 +148,8 @@ const PomodoroTimer = () => {
       <div className="mt-12 w-full max-w-2xl text-center">
         <h2 className="text-2xl font-bold text-white mb-4">Usuarios en la sala:</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-          {Object.values(users).map(user => (
-            <UserCard key={user.id} user={user} />
+          {Object.values(users).map((user) => (
+           <UserCard key={user.id} userId={user.id} activity={user.activity} />
           ))}
         </div>
       </div>

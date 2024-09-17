@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import React, { useState, useRef, useEffect } from 'react';
 import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ onLeave }) => {  // Recibimos la prop onLeave
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -48,10 +48,14 @@ const Navbar = () => {
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
-          <a href="#leave" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          {/* Botón Abandonar Sesión */}
+          <button
+            onClick={onLeave} // Llamamos a la función onLeave cuando el usuario hace clic
+            className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
+          >
             <FaArrowLeft className="mr-3" />
             <span className="text-lg">Abandonar la sesión</span>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -67,10 +71,14 @@ const Navbar = () => {
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
-          <a href="#leave" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          {/* Botón Abandonar Sesión */}
+          <button
+            onClick={onLeave} // Igual que antes, llamamos a onLeave
+            className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
+          >
             <FaArrowLeft className="mr-3" />
             <span className="text-lg">Abandonar la sesión</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -78,3 +86,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+a

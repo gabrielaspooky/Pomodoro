@@ -10,7 +10,8 @@ import JokeFetcher from '../../components/ui/JokerFetcher';
 import ApiFetcher from '../../components/ApiFetcher';
 import SetDailyTask from '../../components/ui/DailyTask';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
-
+import UserLeftToast from '../../components/ui/LeaveToast';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <ChakraProvider>
+      <UserLeftToast />
     <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
       <Pom />
       <TimerDisplay />
