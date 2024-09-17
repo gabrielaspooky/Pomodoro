@@ -21,7 +21,7 @@ export default function BreakTimeModal() {
       <Button 
       onClick={() => setIsBreakTimeModalOpen(true)}
       >
-        ¿Qué quieres hacer?
+        ¿Qué quieres hacer en tu break time?
       </Button>
 
       {isBreakTimeModalOpen && (
@@ -35,7 +35,8 @@ export default function BreakTimeModal() {
             </button>
 
             <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">¿Qué deseas hacer en tu tiempo libre?</h2>
+              <h2 className="text-2xl font-semibold">¿Qué quieres hacer en
+                <br /> tu break time?</h2>
 
               <div className="flex flex-col gap-4">
                 <Button size="lg" onClick={() => setAction("play")}>
@@ -65,7 +66,7 @@ export default function BreakTimeModal() {
             </button>
 
             <h2 className="text-2xl font-semibold mb-4 text-center">¡Juega con Pom!</h2>
-            {/* Aquí podrías insertar el contenido del juego */}
+            {/* insertar el contenido del juego */}
           </div>
         </div>
       )}

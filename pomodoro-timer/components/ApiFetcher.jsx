@@ -43,9 +43,9 @@ const ApiFetcher = () => {
   return (
     <Box p={4} bg="white" borderRadius="md" boxShadow="md" mt={6}>
       {loading ? (
-        <Text>Cargando consejo de salud...</Text>
+        <Text>Cargando consejo...</Text>
       ) : (
-        <Text fontSize="lg" fontWeight="bold">Consejo de salud: {advice}</Text>
+        <Text fontSize="lg" fontWeight="bold">Break tip: {advice}</Text>
       )}
     </Box>
   );
