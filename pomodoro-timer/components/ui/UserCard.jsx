@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Lista de URLs de imágenes
 const imageUrls = [
@@ -12,14 +12,19 @@ const imageUrls = [
 ];
 
 const UserCard = ({ userId, activity }) => {
-  // Seleccionar una imagen aleatoria
-  const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    // Seleccionar una imagen aleatoria solo una vez cuando el componente se monta
+    const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+    setImageUrl(randomImage);
+  }, []); // El array vacío asegura que esto solo se ejecute una vez
 
   return (
     <div className="flex items-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out">
       <div className="flex-shrink-0">
         <img
-          src={randomImage} 
+          src={imageUrl} 
           alt="Avatar"
           className="w-16 h-16 rounded-full border-20 border-blue-400 border-solid shadow-md object-cover"
         />
