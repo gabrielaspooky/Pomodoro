@@ -17,19 +17,20 @@ const UserNameForm = () => {
 
   return (
     <Box 
-      bg="white" 
-      p={10} 
-      rounded="xl" 
-      maxW="md" 
-      mx="auto" 
-      mt={16} 
+      bg="white"
+      p={{ base: 4, md: 10 }} // Ajusta el padding para pantallas pequeñas y grandes
+      rounded="xl"
+      maxW={{ base: "90%", md: "md" }} // En pantallas pequeñas ocupa el 90% del ancho
+      mx="auto"
+      mt={{ base: 10, md: 16 }} // Ajusta el margen superior para diferentes pantallas
       textAlign="center"
+      boxShadow="lg"
     >
-      <Heading mb={6} size="lg" color="purple.500">Crea un usuario</Heading>
-      <Text mb={6} color="black" fontSize="md">Elige un nombre para tu pom-persona</Text>
+      <Heading mb={6} size={{ base: "md", md: "lg" }} color="purple.500">Crea un usuario</Heading>
+      <Text mb={6} color="black" fontSize={{ base: "sm", md: "md" }}>Elige un nombre para tu pom-persona</Text>
 
       <form onSubmit={handleSubmit}>
-        <VStack spacing={4} p={4} py={2}>
+        <VStack spacing={4} p={{ base: 2, md: 4 }} py={2}>
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -41,8 +42,8 @@ const UserNameForm = () => {
           />
           <Button 
             type="submit" 
-            colorScheme="purple" 
-            size="lg" 
+            colorScheme="purple"
+            size={{ base: "md", md: "lg" }} // Ajusta el tamaño del botón para pantallas pequeñas
           >
             Crear
           </Button>
@@ -53,7 +54,7 @@ const UserNameForm = () => {
       {message && (
         <Text 
           mt={4} 
-          fontSize="lg" 
+          fontSize={{ base: "md", md: "lg" }} 
           color={message.includes('bienvenida') ? 'green.500' : 'red.500'} 
         >
           {message}
