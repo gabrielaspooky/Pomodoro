@@ -7,10 +7,10 @@ const UserNameForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (username.length >= 2) {
-      alert(`Username set to: ${username}`)
+      alert(`¡Bienvenid@, ${username}!`)
       setUsername('') // Limpia el input después de enviar
     } else {
-      alert('Username must be at least 2 characters.')
+      alert('Tu usuario debe tener como mínimo dos caracteres')
     }
   }
 
