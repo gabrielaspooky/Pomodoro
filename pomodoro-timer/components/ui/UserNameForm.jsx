@@ -16,34 +16,33 @@ const UserNameForm = () => {
 
   return (
     <Box 
-      bg="gray.100" 
-      p={8} 
-      rounded="lg" 
-      boxShadow="lg" 
-      maxW="sm" 
+      bg="white" 
+      p={10} 
+      rounded="xl" 
+      maxW="md" 
       mx="auto" 
-      mt={12} 
+      mt={16} 
       textAlign="center"
+   
     >
-      <Heading mb={4} size="lg" color="#815ef3">Crea un usuario</Heading>
-      <Text mb={4} color="gray.600">Elige un nombre para tu pom-persona</Text>
+      <Heading mb={6} size="lg" color="purple.500">Crea un usuario</Heading>
+      <Text mb={6} color="black" fontSize="md">Elige un nombre para tu pom-persona</Text>
 
       <form onSubmit={handleSubmit}>
-        <VStack spacing={4}>
+        <VStack spacing={4} p={4} py={2}>
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             variant="filled"
-            placeholder="Crea un nombre de usuario"
+            placeholder="¿Cómo te llamas?"
             size="lg"
-            bg="white"
-            focusBorderColor="#815ef3"
+            bg="gray.100"
+            focusBorderColor="#ac8fc9"
           />
           <Button 
             type="submit" 
             colorScheme="purple" 
             size="lg" 
-            isFullWidth
           >
             Crear
           </Button>

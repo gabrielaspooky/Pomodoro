@@ -1,7 +1,7 @@
 import { Outfit } from 'next/font/google';
 import './globals.css';
 import Navbar from '../../components/ui/Navbar';
-
+import { ChakraProvider } from '@chakra-ui/react'; 
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -14,10 +14,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${outfit.className} flex`}>
-        <Navbar />
-        <main className="flex-1"> {/* Ajusta ml-64 según el ancho de tu Navbar */}
-          {children}
-        </main>
+        <ChakraProvider>
+          <Navbar /> 
+          <main className="flex-1 ml-64"> 
+            {children}
+          </main>
+        </ChakraProvider>
       </body>
     </html>
   );

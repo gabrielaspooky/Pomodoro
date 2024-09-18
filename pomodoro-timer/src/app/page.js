@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { ChakraProvider } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
 import Pom from '../../components/ui/Pom';
 import TimerDisplay from '../../components/ui/TimerDisplay';
 import UserNameForm from '../../components/ui/UserNameForm';
@@ -18,14 +18,18 @@ import SessionEnding from '../../components/SessionEnd';
 
 const Home = () => {
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-  return (
-    <ChakraProvider>
-      <UserLeftToast />
+    // Usamos useEffect para abrir la modal cuando el componente se monta
+    useEffect(() => {
+      onOpen()
+    }, [onOpen])
+
+    return (
+      <>
     <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
       <Pom />
       <TimerDisplay />
-      <UserNameForm />
       <MemoryMatch />
       <BreakTimeModal />
       <JokeFetcher />
@@ -34,9 +38,25 @@ const Home = () => {
     <SessionEnding />
     <PomodoroFaq />
     </div>
-    </ChakraProvider>
-  );
-};
+
+    <>
+    </>
+        
+        {/* Modal que contiene el formulario */}
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+          
+              <UserNameForm /> 
+          </ModalContent>
+        </Modal>
+      </>
+    )
+  }
+
+
+
 
 export default Home;
 
