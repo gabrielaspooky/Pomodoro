@@ -18,6 +18,7 @@ const PomodoroTimer = () => {
   const [users, setUsers] = useState({});
   const [newUser, setNewUser] = useState(null);
   const [userLeft, setUserLeft] = useState(null);
+  const [cycleCount, setCycleCount] = useState(0); // Nuevo estado para el contador de ciclos
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
@@ -43,18 +44,18 @@ const PomodoroTimer = () => {
       });
     });
 
- // Manejar desconexión
- return () => {
-  socketIo.emit('leave_room', room);
-  socketIo.disconnect();
-};
-}, [room]);
+    // Manejar desconexión
+    return () => {
+      socketIo.emit('leave_room', room);
+      socketIo.disconnect();
+    };
+  }, [room]);
 
-const handleLeaveRoom = () => {
-socket?.emit('leave_room', room);
-socket?.disconnect();
-// Aquí puedes agregar un redireccionamiento o lógica adicional si es necesario
-};
+  const handleLeaveRoom = () => {
+    socket?.emit('leave_room', room);
+    socket?.disconnect();
+    // Aquí puedes agregar un redireccionamiento o lógica adicional si es necesario
+  };
 
   useEffect(() => {
     let interval = null;
@@ -65,10 +66,13 @@ socket?.disconnect();
           if (prevSeconds === 0) {
             if (minutes === 0) {
               if (!isBreak) {
+                // Cambia a tiempo de descanso
                 setIsBreak(true);
                 setMinutes(5);
+                setCycleCount((prevCycleCount) => prevCycleCount + 1); // Incrementar contador de ciclos
                 return 0;
               } else {
+                // Vuelve a tiempo de trabajo
                 setIsBreak(false);
                 setMinutes(25);
                 return 0;
@@ -109,9 +113,10 @@ socket?.disconnect();
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25);
+    setMinutes(25); // cambia aquí para test
     setSeconds(0);
     setIsBreak(false);
+    setCycleCount(0); // Reiniciar contador de ciclos
     socket?.emit('update_timer', {
       minutes: 25,
       seconds: 0,
@@ -122,7 +127,7 @@ socket?.disconnect();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-    <Navbar onLeave={handleLeaveRoom} />
+      <Navbar onLeave={handleLeaveRoom} />
       <ToastContainer />
       <h1 className="text-nowrap">
         {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
@@ -144,6 +149,9 @@ socket?.disconnect();
         >
           Reset
         </button>
+      </div>
+      <div className="mt-4 text-white">
+        <h2 className="text-2xl font-bold">Ciclos completados: {cycleCount}</h2>
       </div>
       <div className="mt-12 w-full max-w-2xl text-center">
         <h2 className="text-2xl font-bold text-white mb-4">Usuarios en la sala:</h2>

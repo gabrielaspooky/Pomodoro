@@ -1,8 +1,8 @@
 ## TO-DO
 
-[] Añadir opción de salir de la sala en la lógica del servidor
+[x] Añadir opción de salir de la sala en la lógica del servidor
 [] Organizar arquitectura de la aplicación: estructura y orden de pages
-[] Linkear sidebar y modals
+[x] Linkear sidebar y modals
 [] Añadir ciclos al pomodoro y componente que cuente los ciclos
 [] Arreglar fetch a OpenAI o crear BBDD de sugerencias 
 [] Añadir footer 
