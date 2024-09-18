@@ -3,14 +3,15 @@ import React, { useState } from 'react'
 
 const UserNameForm = () => {
   const [username, setUsername] = useState('')
+  const [message, setMessage] = useState('') // Nuevo estado para el mensaje
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (username.length >= 2) {
-      alert(`¡Bienvenid@, ${username}!`)
+      setMessage(`¡Pom te da la bienvenida, ${username}!`)
       setUsername('') // Limpia el input después de enviar
     } else {
-      alert('Tu usuario debe tener como mínimo dos caracteres')
+      setMessage("El nombre de usuario debe tener al menos 2 caracteres.")
     }
   }
 
@@ -23,7 +24,6 @@ const UserNameForm = () => {
       mx="auto" 
       mt={16} 
       textAlign="center"
-   
     >
       <Heading mb={6} size="lg" color="purple.500">Crea un usuario</Heading>
       <Text mb={6} color="black" fontSize="md">Elige un nombre para tu pom-persona</Text>
@@ -48,6 +48,17 @@ const UserNameForm = () => {
           </Button>
         </VStack>
       </form>
+
+      {/* Mostramos el mensaje aquí */}
+      {message && (
+        <Text 
+          mt={4} 
+          fontSize="lg" 
+          color={message.includes('bienvenida') ? 'green.500' : 'red.500'} 
+        >
+          {message}
+        </Text>
+      )}
     </Box>
   )
 }
