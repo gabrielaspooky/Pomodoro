@@ -12,6 +12,7 @@ import SetDailyTask from '../../components/ui/DailyTask';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import UserLeftToast from '../../components/ui/LeaveToast';
 import { ToastContainer } from 'react-toastify';
+import SessionEnding from '../../components/SessionEnd';
 
 
 
@@ -30,6 +31,7 @@ const Home = () => {
       <JokeFetcher />
     <ApiFetcher />
     <SetDailyTask />
+    <SessionEnding />
     <PomodoroFaq />
     </div>
     </ChakraProvider>
