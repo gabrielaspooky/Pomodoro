@@ -11,27 +11,27 @@ const imageUrls = [
   'https://images.pexels.com/photos/5617166/pexels-photo-5617166.jpeg'
 ];
 
-const UserCard = ({ userId, activity }) => {
+const UserCard = ({ username, activity }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     // Seleccionar una imagen aleatoria solo una vez cuando el componente se monta
     const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
     setImageUrl(randomImage);
-  }, []); // El array vacío asegura que esto solo se ejecute una vez
+  }, []);
 
   return (
-    <div className="flex items-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out">
+    <div className="flex items-center justify-between p-6 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out max-w-xs mx-auto">
       <div className="flex-shrink-0">
         <img
-          src={imageUrl} 
+          src={imageUrl}
           alt="Avatar"
-          className="w-16 h-16 rounded-full border-20 border-blue-400 border-solid shadow-md object-cover"
+          className="w-20 h-20 rounded-full border-4 border-gray-200 object-cover shadow-md"
         />
       </div>
-      <div className="ml-6">
-        <h2 className="text-2xl font-bold text-gray-900">{userId}</h2>
-        <p className="text-sm text-blue-500 mt-1">está {activity ? activity : 'estudiando'}</p>
+      <div className="ml-4">
+        <h2 className="text-lg font-semibold text-gray-700">{username}</h2> {/* Renderizar username */}
+        <p className="text-sm text-blue-500 mt-1">está {activity || 'aprendiendo'}</p> {/* Renderizar actividad */}
       </div>
     </div>
   );

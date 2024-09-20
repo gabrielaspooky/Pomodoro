@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import UserCard from './UserCard';
-import SetDailyTask from './SetDailyTask';
+import UserCard from "../components/ui/UserCard"
+import SetDailyTask from '../components/ui/DailyTask'; // Ajusta la ruta si es necesario
 
-const ParentComponent = () => {
+const ParentComponent = ({ username }) => {
   const [activity, setActivity] = useState('');
-  const userId = 'Pomo User'; 
 
   const handleActivitySelect = (selectedActivity) => {
     setActivity(selectedActivity);
@@ -12,8 +11,8 @@ const ParentComponent = () => {
 
   return (
     <div>
-      <UserCard userId={userId} activity={activity} />
-      <SetDailyTask onActivitySelect={handleActivitySelect} />
+      <UserCard username={username} activity={activity} /> {/* Pasar username y actividad */}
+      <SetDailyTask onActivitySelect={handleActivitySelect} /> {/* Componente para seleccionar actividad */}
     </div>
   );
 };

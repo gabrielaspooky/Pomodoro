@@ -7,7 +7,7 @@ const activities = [
   { name: 'Desarrollo web', icon: Laptop },
 ];
 
-export default function SetDailyTask({ onActivitySelect }) {
+const SetDailyTask = ({ onActivitySelect }) => {
   const [customActivity, setCustomActivity] = useState('');
   const [isCustom, setIsCustom] = useState(false);
 
@@ -16,7 +16,9 @@ export default function SetDailyTask({ onActivitySelect }) {
   };
 
   const handleActivitySelection = (activity) => {
-    onActivitySelect(activity);  // Enviar la actividad seleccionada al padre
+    if (activity.trim()) {
+      onActivitySelect(activity);
+    }
   };
 
   return (
@@ -44,7 +46,12 @@ export default function SetDailyTask({ onActivitySelect }) {
                   placeholder="Otra actividad"
                   className="box-border hover:box-content w-full bg-transparent border-b border-[#2D2D2D] text-center text-lg placeholder-[#8E8E93] focus:outline-none"
                 />
-                <button onClick={() => handleActivitySelection(customActivity)} className="mt-2 text-blue-500">Seleccionar</button>
+                <button
+                  onClick={() => handleActivitySelection(customActivity)}
+                  className="mt-2 text-blue-500"
+                >
+                  Seleccionar
+                </button>
               </div>
             ) : (
               <button
@@ -60,4 +67,6 @@ export default function SetDailyTask({ onActivitySelect }) {
       </main>
     </div>
   );
-}
+};
+
+export default SetDailyTask;
