@@ -60,20 +60,20 @@ const Navbar = ({ onLeave }) => {
       </div>
 
       {/* Menú superior para pantallas grandes */}
-      <div className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-[#815ef3] min-h-screen flex-col items-center py-8 z-50">
+      <div className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-[#6477e0] min-h-screen flex-col items-center py-8 z-50">
         <div className="text-white text-3xl font-bold mb-12">PoMo</div>
         <div className="flex flex-col space-y-6">
           <a href="#home" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaHome className="mr-3" />
             <span className="text-lg">Inicio</span>
           </a>
-          <a href="#about" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          <a href="#faqs" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
           {/* Botón Abandonar Sesión */}
           <button
-            onClick={onLeave} // Igual que antes, llamamos a onLeave
+            onClick={onLeave} 
             className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
           >
             <FaArrowLeft className="mr-3" />

@@ -20,16 +20,13 @@ const PomodoroTimer = () => {
   const [newUser, setNewUser] = useState(null);
   const [userLeft, setUserLeft] = useState(null);
   const [cycleCount, setCycleCount] = useState(0); 
-  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
     setSocket(socketIo);
 
-    // Unirse a la sala
     socketIo.emit('join_room', room);
 
-    // Cuando un usuario se une
     socketIo.on('user_joined', (users) => {
       const userIds = Object.keys(users);
       const latestUserId = userIds[userIds.length - 1];
@@ -37,7 +34,6 @@ const PomodoroTimer = () => {
       setUsers(users);
     });
 
-    // Cuando un usuario se va (por desconexión o botón)
     socketIo.on('user_left', (user) => {
       setUserLeft(user);
       setUsers((prevUsers) => {
@@ -46,45 +42,38 @@ const PomodoroTimer = () => {
       });
     });
 
-    // Manejar desconexión
     return () => {
       socketIo.emit('leave_room', room);
       socketIo.disconnect();
     };
   }, [room]);
 
-  const handleLeaveRoom = () => {
-    socket?.emit('leave_room', room);
-    socket?.disconnect();
-  };
-
   useEffect(() => {
     let interval = null;
-
+  
     if (isActive) {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => {
           if (prevSeconds === 0) {
-            if (minutes === 0) {
-              if (!isBreak) {
-                setIsBreak(true);
-                setMinutes(5);
-                setCycleCount((prevCycleCount) => prevCycleCount + 1);
-                return 0;
-              } else {
-                setIsBreak(false);
-                setMinutes(25);
-                return 0;
+            setMinutes((prevMinutes) => {
+              if (prevMinutes === 0) {
+                if (!isBreak) {
+                  setIsBreak(true);
+                  return 5; // Tiempo de descanso
+                } else {
+                  setIsBreak(false);
+                  setCycleCount((prevCycleCount) => prevCycleCount + 1);
+                  return 25; // Tiempo de trabajo
+                }
               }
-            } else {
-              setMinutes((prevMinutes) => prevMinutes - 1);
-              return 59;
-            }
-          } else {
-            return prevSeconds - 1;
+              return prevMinutes - 1;
+            });
+            return 59;
           }
+          return prevSeconds - 1;
         });
-
+  
+        // Emitir la actualización del temporizador a través del socket
         socket?.emit('update_timer', {
           minutes,
           seconds,
@@ -95,10 +84,10 @@ const PomodoroTimer = () => {
     } else {
       clearInterval(interval);
     }
-
+  
     return () => clearInterval(interval);
-  }, [isActive, minutes, seconds, isBreak, socket]);
-
+  }, [isActive, isBreak, socket]); 
+  
   const toggleTimer = () => {
     setIsActive(!isActive);
     socket?.emit('update_timer', {
@@ -125,7 +114,7 @@ const PomodoroTimer = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-      <Navbar onLeave={handleLeaveRoom} />
+      {/* <Navbar onLeave={handleLeaveRoom} /> */}
       <ToastContainer />
       <Pom isBreak={isBreak} />
       {isBreak && <MemoryMatch />}

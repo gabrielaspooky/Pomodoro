@@ -24,7 +24,7 @@ const Pom = ({ isBreak }) => {
           alt="Perrito dormido"
           width={400}
           height={400}
-          className="mx-auto"
+          className="mx-auto animate-pulse"
         />
       ) : (
         // Si no estamos en la fase de descanso, mostramos la animación de Lottie (perrito despierto)

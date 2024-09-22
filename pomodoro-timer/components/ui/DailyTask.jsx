@@ -37,7 +37,7 @@ export default function SetDailyTask({ onActivitySelect }) {
   return (
     <div>
       <div className="w-full max-w-md bg-white/90 rounded-3xl p-6">
-        <h2 className="text-2xl md:text-3xl font-semibold text-center">
+        <h2 className="text-2xl md:text-3xl text-center whitespace-nowrap">
           Cuéntale a Pomo qué harás hoy
         </h2>
         <motion.div 
@@ -85,7 +85,7 @@ export default function SetDailyTask({ onActivitySelect }) {
                       value={customActivity}
                       onChange={(e) => setCustomActivity(e.target.value)}
                       placeholder="Escribe tu actividad"
-                      className="flex-grow bg-transparent border-b-2 border-[#2D2D2D] text-lg placeholder-[#8E8E93] focus:outline-none focus:border-purple-500 px-2 py-1"
+                      className="flex-grow bg-transparent border-none text-lg placeholder-[#8E8E93] focus:outline-none px-2 py-1"
                       autoFocus
                     />
                     <Button

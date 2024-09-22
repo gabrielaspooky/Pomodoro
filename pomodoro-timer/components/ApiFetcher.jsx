@@ -59,7 +59,7 @@ const ApiFetcher = () => {
   return (
     <Box p={4} bg="white" borderRadius="md" boxShadow="md" mt={6}>
       {loading ? (
-        <Text>Cargando consejo...</Text>
+        <Text></Text>
       ) : error ? (
         <Text color="red.500">{error}</Text>
       ) : (
