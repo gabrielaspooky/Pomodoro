@@ -31,10 +31,8 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
-      <Pom />
       <TimerDisplay />
-      
-      {/* Muestra ParentComponent solo si el username existe */}
+    
       {showDailyTask && <ParentComponent username={username} />} 
 
       <MemoryMatch />

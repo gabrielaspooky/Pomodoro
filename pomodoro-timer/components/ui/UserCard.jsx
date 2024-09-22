@@ -12,26 +12,26 @@ const imageUrls = [
 ];
 
 const UserCard = ({ username, activity }) => {
-  const [imageUrl, setImageUrl] = useState('');
+  const [randomImage, setRandomImage] = useState('');
 
   useEffect(() => {
     // Seleccionar una imagen aleatoria solo una vez cuando el componente se monta
-    const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
-    setImageUrl(randomImage);
+    const image = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+    setRandomImage(image);
   }, []);
 
   return (
     <div className="flex items-center justify-between p-6 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 ease-in-out max-w-xs mx-auto">
       <div className="flex-shrink-0">
         <img
-          src={imageUrl}
+          src={randomImage}
           alt="Avatar"
           className="w-20 h-20 rounded-full border-4 border-gray-200 object-cover shadow-md"
         />
       </div>
       <div className="ml-4">
-        <h2 className="text-lg font-semibold text-gray-700">{username}</h2> {/* Renderizar username */}
-        <p className="text-sm text-blue-500 mt-1">está {activity || 'aprendiendo'}</p> {/* Renderizar actividad */}
+        <h2 className="text-lg font-semibold text-gray-700">{username}</h2>
+        <p className="text-sm text-blue-500 mt-1">está {activity || 'en línea'}</p>
       </div>
     </div>
   );

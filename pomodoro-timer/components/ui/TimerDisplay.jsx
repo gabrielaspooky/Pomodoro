@@ -2,11 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
-import UserCard from './UserCard';
 import UserJoinedToast from './JoinToast';
 import UserLeftToast from './LeaveToast';  
 import MemoryMatch from './MemoryMatch';
 import Navbar from './Navbar';
+import UserCard from './UserCard';
+import Pom from './Pom'; // Asegúrate de importar el componente Pom
+
+const imageUrls = [
+  'https://images.pexels.com/photos/5465339/pexels-photo-5465339.jpeg',
+  'https://images.pexels.com/photos/5465502/pexels-photo-5465502.jpeg',
+  'https://images.pexels.com/photos/18111115/pexels-photo-18111115/free-photo-of-pomeranian-standing-on-grass.jpeg',
+  'https://images.pexels.com/photos/11901851/pexels-photo-11901851.jpeg',
+  'https://images.pexels.com/photos/10405999/pexels-photo-10405999.jpeg',
+  'https://images.pexels.com/photos/3887670/pexels-photo-3887670.jpeg',
+  'https://images.pexels.com/photos/5617166/pexels-photo-5617166.jpeg'
+];
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -18,33 +29,34 @@ const PomodoroTimer = () => {
   const [users, setUsers] = useState({});
   const [newUser, setNewUser] = useState(null);
   const [userLeft, setUserLeft] = useState(null);
-  const [cycleCount, setCycleCount] = useState(0); // Nuevo estado para el contador de ciclos
+  const [cycleCount, setCycleCount] = useState(0);
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
     setSocket(socketIo);
 
-    // Unirse a la sala
     socketIo.emit('join_room', room);
 
-    // Cuando un usuario se une
     socketIo.on('user_joined', (users) => {
       const userIds = Object.keys(users);
       const latestUserId = userIds[userIds.length - 1];
-      setNewUser(users[latestUserId]);
-      setUsers(users);
+      const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+      const newUser = { ...users[latestUserId], image: randomImage };
+      setNewUser(newUser);
+      setUsers((prevUsers) => ({
+        ...prevUsers,
+        [latestUserId]: newUser,
+      }));
     });
 
-    // Cuando un usuario se va (por desconexión o botón)
     socketIo.on('user_left', (user) => {
-      setUserLeft(user);  // Guardamos al usuario que salió
+      setUserLeft(user);
       setUsers((prevUsers) => {
         const { [user.id]: _, ...newUsers } = prevUsers;
         return newUsers;
       });
     });
 
-    // Manejar desconexión
     return () => {
       socketIo.emit('leave_room', room);
       socketIo.disconnect();
@@ -54,7 +66,6 @@ const PomodoroTimer = () => {
   const handleLeaveRoom = () => {
     socket?.emit('leave_room', room);
     socket?.disconnect();
-    // Aquí puedes agregar un redireccionamiento o lógica adicional si es necesario
   };
 
   useEffect(() => {
@@ -66,13 +77,11 @@ const PomodoroTimer = () => {
           if (prevSeconds === 0) {
             if (minutes === 0) {
               if (!isBreak) {
-                // Cambia a tiempo de descanso
                 setIsBreak(true);
                 setMinutes(5);
-                setCycleCount((prevCycleCount) => prevCycleCount + 1); // Incrementar contador de ciclos
+                setCycleCount((prevCycleCount) => prevCycleCount + 1);
                 return 0;
               } else {
-                // Vuelve a tiempo de trabajo
                 setIsBreak(false);
                 setMinutes(25);
                 return 0;
@@ -92,7 +101,6 @@ const PomodoroTimer = () => {
           isActive,
           isBreak,
         });
-
       }, 1000);
     } else {
       clearInterval(interval);
@@ -113,10 +121,10 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); // cambia aquí para test
+    setMinutes(0);
     setSeconds(0);
     setIsBreak(false);
-    setCycleCount(0); // Reiniciar contador de ciclos
+    setCycleCount(0);
     socket?.emit('update_timer', {
       minutes: 25,
       seconds: 0,
@@ -129,9 +137,14 @@ const PomodoroTimer = () => {
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
       <Navbar onLeave={handleLeaveRoom} />
       <ToastContainer />
+      
+      {/* Sección del Pom */}
+      <Pom isBreak={isBreak} />
+
       <h1 className="text-nowrap">
         {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
       </h1>
+      
       {isBreak && <MemoryMatch />}
       <div className="text-6xl font-mono mb-6 text-white drop-shadow-lg transition-transform duration-300 transform hover:scale-105">
         {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
@@ -153,14 +166,21 @@ const PomodoroTimer = () => {
       <div className="mt-4 text-white">
         <h2 className="text-2xl font-bold">Ciclos completados: {cycleCount}</h2>
       </div>
+
       <div className="mt-12 w-full max-w-2xl text-center">
         <h2 className="text-2xl font-bold text-white mb-4">Usuarios en la sala:</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {Object.values(users).map((user) => (
-           <UserCard key={user.id} userId={user.id} activity={user.activity} />
+            <UserCard
+              key={user.id}
+              username={user.username}
+              activity={user.activity}
+              imageUrl={user.image} // Usa la imagen única
+            />
           ))}
         </div>
       </div>
+
       {newUser && <UserJoinedToast user={newUser} />}
       {userLeft && <UserLeftToast user={userLeft} />}
     </div>
