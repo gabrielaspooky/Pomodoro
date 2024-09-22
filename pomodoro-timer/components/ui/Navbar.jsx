@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes } from 'react-icons/fa';
+import SessionEnding from '../SessionEnd';
 
 const Navbar = ({ onLeave }) => {  // Recibimos la prop onLeave
   const [isOpen, setIsOpen] = useState(false);
