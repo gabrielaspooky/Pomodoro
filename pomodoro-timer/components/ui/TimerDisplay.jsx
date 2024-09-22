@@ -19,7 +19,8 @@ const PomodoroTimer = () => {
   const [users, setUsers] = useState({});
   const [newUser, setNewUser] = useState(null);
   const [userLeft, setUserLeft] = useState(null);
-  const [cycleCount, setCycleCount] = useState(0); // Nuevo estado para el contador de ciclos
+  const [cycleCount, setCycleCount] = useState(0); 
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
@@ -38,7 +39,7 @@ const PomodoroTimer = () => {
 
     // Cuando un usuario se va (por desconexión o botón)
     socketIo.on('user_left', (user) => {
-      setUserLeft(user);  // Guardamos al usuario que salió
+      setUserLeft(user);
       setUsers((prevUsers) => {
         const { [user.id]: _, ...newUsers } = prevUsers;
         return newUsers;
@@ -55,7 +56,6 @@ const PomodoroTimer = () => {
   const handleLeaveRoom = () => {
     socket?.emit('leave_room', room);
     socket?.disconnect();
-    // Aquí puedes agregar un redireccionamiento o lógica adicional si es necesario
   };
 
   useEffect(() => {
@@ -67,13 +67,11 @@ const PomodoroTimer = () => {
           if (prevSeconds === 0) {
             if (minutes === 0) {
               if (!isBreak) {
-                // Cambia a tiempo de descanso
                 setIsBreak(true);
                 setMinutes(5);
-                setCycleCount((prevCycleCount) => prevCycleCount + 1); // Incrementar contador de ciclos
+                setCycleCount((prevCycleCount) => prevCycleCount + 1);
                 return 0;
               } else {
-                // Vuelve a tiempo de trabajo
                 setIsBreak(false);
                 setMinutes(25);
                 return 0;
@@ -93,7 +91,6 @@ const PomodoroTimer = () => {
           isActive,
           isBreak,
         });
-
       }, 1000);
     } else {
       clearInterval(interval);
@@ -114,10 +111,10 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); // cambia aquí para test
+    setMinutes(25);
     setSeconds(0);
     setIsBreak(false);
-    setCycleCount(0); // Reiniciar contador de ciclos
+    setCycleCount(0);
     socket?.emit('update_timer', {
       minutes: 25,
       seconds: 0,
@@ -156,7 +153,12 @@ const PomodoroTimer = () => {
         <h2 className="text-2xl font-bold text-white mb-4">Usuarios en la sala:</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {Object.values(users).map((user) => (
-           <UserCard key={user.id} userId={user.id} activity={user.activity} />
+            <UserCard 
+              key={user.id} 
+              userId={user.id} 
+              activity={user.activity} 
+              username={user.username} 
+            />
           ))}
         </div>
       </div>

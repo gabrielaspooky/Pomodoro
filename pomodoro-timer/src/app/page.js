@@ -9,11 +9,11 @@ import ApiFetcher from '../../components/ApiFetcher';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import SessionEnding from '../../components/SessionEnd';
 import Navbar from '../../components/ui/Navbar';
+import UserCard from '../../components/ui/UserCard';
 
 const Home = () => {
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
-  const [username, setUsername] = useState('');
-  const [activity, setActivity] = useState('');
+  const [userData, setUserData] = useState(null); // Estado para usuario
   const [showSessionEnd, setShowSessionEnd] = useState(false);
 
   const handleLeave = () => {
@@ -22,29 +22,27 @@ const Home = () => {
 
   const handleRejoin = () => {
     setShowSessionEnd(false);
-    // Reinicia los estados si es necesario
-    setUsername('');
-    setActivity('');
+    setUserData(null); // Reinicia el estado de usuario
     setIsOnboardingComplete(false); // Vuelve a empezar si es necesario
   };
 
+  const handleOnboardingComplete = (username, activity) => {
+    setUserData({ username, activity });
+    setIsOnboardingComplete(true); // Marca el onboarding como completo
+  };
+
   return (
-    <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
+    <div className="bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
       <Navbar onLeave={handleLeave} /> {/* Navbar siempre visible */}
 
       {showSessionEnd ? (
         <SessionEnding onRejoin={handleRejoin} /> // Mostrar SessionEnding si se abandona
-      ) : !isOnboardingComplete ? (
-        <Onboarding 
-          onComplete={(name, selectedActivity) => {
-            setUsername(name);
-            setActivity(selectedActivity);
-            setIsOnboardingComplete(true);
-          }} 
-        />
+      ) : !userData ? ( // Cambia aquí para usar userData
+        <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
         <>
-          <TimerDisplay username={username} activity={activity} />
+          <UserCard username={userData.username} activity={userData.activity} /> 
+          <TimerDisplay username={userData.username} activity={userData.activity} />
           <MemoryMatch />
           <BreakTimeModal />
           <JokeFetcher />

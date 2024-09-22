@@ -15,7 +15,7 @@ export default function SessionEnding({ onRejoin }) { // Acepta onRejoin como pr
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-400 to-purple-600 text-white p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
       <motion.div 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
