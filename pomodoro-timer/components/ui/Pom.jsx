@@ -36,7 +36,7 @@ const Pom = ({ isBreak }) => {
       )}
       {/* Mostrar un mensaje dependiendo de la fase */}
       <p className="text-center mt-4 text-lg">
-        {isBreak ? 'El perrito está descansando 💤' : 'El perrito está trabajando 🐕'}
+        {isBreak ? '¡Hora del break!💤' : '¡Modo focus! 👀'}
       </p>
     </div>
   );

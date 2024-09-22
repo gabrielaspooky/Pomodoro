@@ -140,10 +140,6 @@ const PomodoroTimer = () => {
       
       {/* Sección del Pom */}
       <Pom isBreak={isBreak} />
-
-      <h1 className="text-nowrap">
-        {isBreak ? 'Break Time!' : 'Pomodoro Timer'}
-      </h1>
       
       {isBreak && <MemoryMatch />}
       <div className="text-6xl font-mono mb-6 text-white drop-shadow-lg transition-transform duration-300 transform hover:scale-105">
