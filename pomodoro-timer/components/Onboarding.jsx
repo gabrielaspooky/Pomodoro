@@ -23,9 +23,11 @@ const Onboarding = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      {step === 1 && <UserNameForm onSubmit={handleUsernameSubmit} />}
-      {step === 2 && <SetDailyTask onActivitySelect={handleActivitySelect} />}
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
+        {step === 1 && <UserNameForm onSubmit={handleUsernameSubmit} />}
+        {step === 2 && <SetDailyTask onActivitySelect={handleActivitySelect} />}
+      </div>
     </div>
   );
 };

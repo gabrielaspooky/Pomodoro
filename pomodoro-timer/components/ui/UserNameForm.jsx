@@ -19,15 +19,15 @@ const UserNameForm = ({ onSubmit }) => {
   return (
     <Box 
       bg="white" 
-      p={10} 
+      p={{ base: 6, md: 10 }}  // Padding responsivo
       rounded="xl" 
-      maxW="md" 
+      maxW={{ base: '90%', sm: 'md' }} // Ancho máximo responsivo
       mx="auto" 
       mt={16} 
       textAlign="center"
     >
-      <Heading mb={6} size="lg" color="purple.500">Crea un usuario</Heading>
-      <Text mb={6} color="black" fontSize="md">Elige un nombre para tu pom-persona</Text>
+      <Heading mb={6} size={{ base: 'lg', md: 'xl' }} color="purple.500">Crea un usuario</Heading>
+      <Text mb={6} color="black" fontSize={{ base: 'md', md: 'lg' }}>Elige un nombre para tu pom-persona</Text>
 
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} p={4} py={2}>
@@ -44,6 +44,7 @@ const UserNameForm = ({ onSubmit }) => {
             type="submit" 
             colorScheme="purple" 
             size="lg" 
+            width="full" // Botón ocupa todo el ancho
           >
             Crear
           </Button>

@@ -5,15 +5,14 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation'
 
-export default function SessionEnding() {
+export default function SessionEnding({ onRejoin }) { // Acepta onRejoin como prop
   const router = useRouter();
 
   const handleRejoinSession = () => {
-    // Aquí iría la lógica para volver a unirse a la sesión
     console.log("Volviendo a unirse a la sesión...");
+    onRejoin(); // Llama a la función pasada como prop
     router.push("/");  
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-purple-400 to-purple-600 text-white p-4">
