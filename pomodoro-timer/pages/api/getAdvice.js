@@ -1,37 +1,26 @@
+import clientPromise from '../../../pomodoro-timer/src/lib/mongodb';
+
 export default async function handler(req, res) {
-  const { prompt } = req.body;
-
-  if (!prompt) {
-    return res.status(400).json({ error: 'Prompt es requerido' });
-  }
-
   try {
-    const response = await fetch('https://api.openai.com/v1/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: 'text-davinci-003',
-        prompt: prompt,
-        max_tokens: 100,
-        temperature: 0.7,
-      }),
-    });
+    const client = await clientPromise;
+    const db = client.db('productive_advice'); 
+    const collection = db.collection('productive_advice.advices'); 
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('API error:', errorData);
-      throw new Error(errorData.error.message || 'Error desconocido');
+    
+    const result = await collection.findOne({});
+
+    if (!result) {
+      return res.status(404).json({ error: "No se encontraron consejos" });
     }
 
-    const data = await response.json();
-    const advice = data.choices[0]?.text.trim() || 'No se recibió consejo';
+    
+    const consejos = result.productive_advice;
 
-    return res.status(200).json({ advice });
+
+    res.status(200).json({ consejos });
   } catch (error) {
-    console.error('Error al obtener el consejo:', error.message);
-    return res.status(500).json({ error: 'Ocurrió un error al obtener el consejo.' });
+    console.error(error);
+    res.status(500).json({ error: 'Hubo un problema al obtener los datos' });
   }
 }
+
