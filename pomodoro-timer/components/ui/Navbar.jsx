@@ -71,7 +71,7 @@ const Navbar = ({ onLeave }) => {
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </a>
-          {/* Botón Abandonar Sesión */}
+        
           <button
             onClick={onLeave} 
             className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"

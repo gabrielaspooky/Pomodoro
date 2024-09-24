@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Lottie from 'react-lottie';
-import awakeAnimation from '../../public/pom.json'; /
+import awakeAnimation from '../../public/pom.json'; 
 import Image from 'next/image'; 
 
 const Pom = ({ isBreak }) => {

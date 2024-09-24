@@ -1,5 +1,6 @@
 import { Input, Box, Button, Heading, Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { CircleUser } from 'lucide-react';
 
 const UserNameForm = ({ onSubmit }) => {
   const [username, setUsername] = useState('');
@@ -9,8 +10,8 @@ const UserNameForm = ({ onSubmit }) => {
     e.preventDefault();
     if (username.length >= 2) {
       setMessage(`¡Pom te da la bienvenida, ${username}!`);
-      onSubmit(username); // Pasamos el nombre de usuario al componente padre
-      setUsername(''); // Limpiar el input después de enviar
+      onSubmit(username); 
+      setUsername(''); 
     } else {
       setMessage("El nombre de usuario debe tener al menos 2 caracteres.");
     }
@@ -19,13 +20,14 @@ const UserNameForm = ({ onSubmit }) => {
   return (
     <Box 
       bg="white" 
-      p={{ base: 6, md: 10 }}  // Padding responsivo
+      p={{ base: 6, md: 10 }}  
       rounded="xl" 
-      maxW={{ base: '90%', sm: 'md' }} // Ancho máximo responsivo
+      maxW={{ base: '90%', sm: 'md' }} 
       mx="auto" 
       mt={16} 
       textAlign="center"
     >
+
       <Heading mb={6} size={{ base: 'lg', md: 'xl' }} color="purple.500">Crea un usuario</Heading>
       <Text mb={6} color="black" fontSize={{ base: 'md', md: 'lg' }}>Elige un nombre para tu pom-persona</Text>
 
@@ -44,7 +46,7 @@ const UserNameForm = ({ onSubmit }) => {
             type="submit" 
             colorScheme="purple" 
             size="lg" 
-            width="full" // Botón ocupa todo el ancho
+            width="full" 
           >
             Crear
           </Button>

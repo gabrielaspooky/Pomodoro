@@ -16,7 +16,7 @@ const Onboarding = ({ onComplete }) => {
   const handleActivitySelect = (selectedActivity) => {
     setActivity(selectedActivity);
     setStep(3);
-    // Llama a onComplete cuando se complete el onboarding
+    
     if (selectedActivity) {
       onComplete(username, selectedActivity);
     }

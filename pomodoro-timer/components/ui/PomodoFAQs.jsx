@@ -28,8 +28,8 @@ export default function PomodoroFaq() {
   };
 
   return (
-    <div className="max-w mx-auto p-4 sm:p-6 md:p-8 bg-white dark:bg-black">
-      <h3 className="text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-8 md:mb-10 text-black dark:text-white transition-all duration-300 hover:scale-105">
+    <div className="max-w mx-auto p-4 sm:p-6 md:p-8 bg-white">
+      <h3 className="text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-8 md:mb-10">
         Preguntas frecuentes sobre la técnica pomodoro
       </h3>
       <div className="space-y-4 sm:space-y-6">
@@ -42,7 +42,7 @@ export default function PomodoroFaq() {
               scale: activeIndex === index ? 1.02 : 1
             }}
             transition={{ duration: 0.3 }}
-            className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+            className="border border-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <button
               onClick={() => toggleFaq(index)}
