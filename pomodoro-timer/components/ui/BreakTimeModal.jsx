@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 import JokeFetcher from "../ui/JokerFetcher"
+import MemoryMatch from "./MemoryMatch"
 
 export default function BreakTimeModal({ isBreak, onClose }) {
   const [action, setAction] = useState("")
@@ -13,12 +14,17 @@ export default function BreakTimeModal({ isBreak, onClose }) {
     }
   }, [isBreak])
 
-  const handleJoke = () => {
-    setAction("joke")
+  const handlePlayWithPom = () => {
+    setAction("play")
+    onClose()  // Cerramos el modal principal
   }
 
   const handleSuggestion = () => {
     alert("Aquí tienes una sugerencia: organiza tu espacio de trabajo o aprende algo nuevo en línea.")
+  }
+
+  const handleJoke = () => {
+    setAction("joke")
   }
 
   return (
@@ -39,7 +45,7 @@ export default function BreakTimeModal({ isBreak, onClose }) {
               <div className="flex flex-col gap-4">
                 <Button 
                   size="lg" 
-                  onClick={() => setAction("play")}
+                  onClick={handlePlayWithPom}  // Cambiamos esto
                   className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
                 >
                   Juega con Pom
@@ -64,20 +70,10 @@ export default function BreakTimeModal({ isBreak, onClose }) {
         </div>
       )}
 
-      {/* Mostrar la acción seleccionada */}
+      {/* Mostramos MemoryMatch fuera del modal */}
       {action === "play" && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white w-96 p-6 rounded-lg relative">
-            <button
-              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setAction("")}
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <h2 className="text-2xl font-semibold mb-4 text-center">¡Juega con Pom!</h2>
-            {/* insertar el contenido del juego */}
-          </div>
+        <div className="mt-8">
+          <MemoryMatch />
         </div>
       )}
 

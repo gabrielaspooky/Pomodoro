@@ -20,7 +20,7 @@ export default function MemoryMatch() {
   const [cards, setCards] = useState([])
   const [flippedCards, setFlippedCards] = useState([])
   const [matchedPairs, setMatchedPairs] = useState(0)
-  const [isGameModalOpen, setIsGameModalOpen] = useState(false)
+  // Eliminamos la línea: const [isGameModalOpen, setIsGameModalOpen] = useState(false)
 
   useEffect(() => {
     initializeGame()
@@ -69,49 +69,35 @@ export default function MemoryMatch() {
 
   return (
     <>
-      <Button onClick={() => setIsGameModalOpen(true)}>¡Juega con Pom!</Button>
+      {/* Eliminamos el botón y el modal externo */}
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold mb-4">Juega con Pom</h2>
+        <Button size="sm" onClick={initializeGame}>
+          <Shuffle className="mr-2 h-4 w-4" /> Nueva partida
+        </Button>
+      </div>
 
-      {isGameModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white w-96 p-6 rounded-lg relative">
-            <button 
-              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900" 
-              onClick={() => setIsGameModalOpen(false)}
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-4">Juega con Pom</h2>
-              <Button size="sm" onClick={initializeGame}>
-                <Shuffle className="mr-2 h-4 w-4" /> Nueva partida
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-4 gap-2 mt-4">
-              {cards.map((card) => (
-                <div
-                  key={card.id}
-                  className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-300 ${
-                    card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-300'
-                  }`}
-                  onClick={() => handleCardClick(card.id)}
-                >
-                  {card.flipped || card.matched ? (
-                    <img src={card.image} alt="Pomerania" className="w-full h-full object-cover rounded-lg" />
-                  ) : (
-                    '?'
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 text-center">
-              Poms encontrados: {matchedPairs} / {CARD_IMAGES.length}
-            </div>
+      <div className="grid grid-cols-4 gap-2 mt-4">
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-300 ${
+              card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-300'
+            }`}
+            onClick={() => handleCardClick(card.id)}
+          >
+            {card.flipped || card.matched ? (
+              <img src={card.image} alt="Pomerania" className="w-full h-full object-cover rounded-lg" />
+            ) : (
+              '?'
+            )}
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+
+      <div className="mt-4 text-center">
+        Poms encontrados: {matchedPairs} / {CARD_IMAGES.length}
+      </div>
     </>
   )
 }

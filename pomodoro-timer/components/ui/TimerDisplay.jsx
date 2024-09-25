@@ -120,7 +120,7 @@ const PomodoroTimer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setMinutes(25); // testing
+    setMinutes(0); // testing
     setSeconds(0);
     setIsBreak(false);
     setCycleCount(0);
