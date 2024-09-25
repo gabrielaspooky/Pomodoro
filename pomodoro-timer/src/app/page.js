@@ -42,7 +42,6 @@ const Home = () => {
         <>
           <UserCard username={userData.username} activity={userData.activity} /> 
           <TimerDisplay username={userData.username} activity={userData.activity} />
-          <BreakTimeModal />
           <ApiFetcher />
           <PomodoroFaq />
         </>
