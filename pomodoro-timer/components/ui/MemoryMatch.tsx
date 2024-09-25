@@ -68,35 +68,36 @@ export default function MemoryMatch() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-6 text-purple-600">Juega con Pom</h2>
-        <Button size="lg" onClick={initializeGame} className="bg-purple-500 hover:bg-purple-600 text-white">
-          <Shuffle className="mr-2 h-5 w-5" /> Nueva partida
+    <>
+      {/* Eliminamos el botón y el modal externo */}
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold mb-4">Juega con Pom</h2>
+        <Button size="sm" onClick={initializeGame}>
+          <Shuffle className="mr-2 h-4 w-4" /> Nueva partida
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-4 gap-2 mt-4">
         {cards.map((card) => (
           <div
             key={card.id}
-            className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-xl transition-all duration-300 shadow-md ${
-              card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-200 hover:bg-gray-300'
+            className={`w-20 h-20 flex items-center justify-center cursor-pointer rounded-lg transition-all duration-300 ${
+              card.flipped || card.matched ? 'bg-purple-500' : 'bg-gray-300'
             }`}
             onClick={() => handleCardClick(card.id)}
           >
             {card.flipped || card.matched ? (
-              <img src={card.image} alt="Pomerania" className="w-full h-full object-cover rounded-xl" />
+              <img src={card.image} alt="Pomerania" className="w-full h-full object-cover rounded-lg" />
             ) : (
-              <span className="text-2xl font-bold text-purple-600">?</span>
+              '?'
             )}
           </div>
         ))}
       </div>
 
-      <div className="mt-8 text-center text-xl font-semibold text-purple-600">
+      <div className="mt-4 text-center">
         Poms encontrados: {matchedPairs} / {CARD_IMAGES.length}
       </div>
-    </div>
+    </>
   )
 }
