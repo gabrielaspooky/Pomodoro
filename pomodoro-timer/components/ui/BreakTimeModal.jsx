@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 import JokeFetcher from "../ui/JokerFetcher"
 import MemoryMatch from "./MemoryMatch"
+import ApiFetcher from "../ApiFetcher"
 
 export default function BreakTimeModal({ isBreak, onClose }) {
   const [action, setAction] = useState("")
@@ -20,7 +21,7 @@ export default function BreakTimeModal({ isBreak, onClose }) {
   }
 
   const handleSuggestion = () => {
-    alert("Aquí tienes una sugerencia: organiza tu espacio de trabajo o aprende algo nuevo en línea.")
+    setAction("suggestion")
   }
 
   const handleJoke = () => {
@@ -89,6 +90,22 @@ export default function BreakTimeModal({ isBreak, onClose }) {
 
             <h2 className="text-2xl font-semibold mb-4 text-center">Aquí tienes un chiste:</h2>
             <JokeFetcher />
+          </div>
+        </div>
+      )}
+
+      {action === "suggestion" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white w-full max-w-2xl p-6 rounded-lg relative">
+            <button
+              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+              onClick={() => setAction("")}
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h2 className="text-2xl font-semibold mb-4 text-center">Sugerencia Productiva</h2>
+            <ApiFetcher />
           </div>
         </div>
       )}

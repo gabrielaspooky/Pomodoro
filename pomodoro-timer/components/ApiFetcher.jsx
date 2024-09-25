@@ -54,8 +54,8 @@ export default function ApiFetcher() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-300 to-purple-300 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl overflow-hidden">
+    <div className="bg-gradient-to-br from-blue-300 to-purple-300 p-4 rounded-lg">
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
           <h1 className="text-3xl font-bold text-center text-white">Consejo Productivo del Día</h1>
         </div>

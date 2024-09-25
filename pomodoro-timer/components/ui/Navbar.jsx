@@ -1,9 +1,11 @@
 "use client";
+import Link from 'next/link';
 import React, { useState, useRef, useEffect } from 'react';
-import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Navbar = ({ onLeave }) => {
+const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDesktopNavVisible, setIsDesktopNavVisible] = useState(true);
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
@@ -20,6 +22,19 @@ const Navbar = ({ onLeave }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    // Añadir o remover una clase al body cuando cambia isDesktopNavVisible
+    document.body.classList.toggle('nav-hidden', !isDesktopNavVisible);
+  }, [isDesktopNavVisible]);
+
+  const toggleDesktopNav = () => {
+    setIsDesktopNavVisible(!isDesktopNavVisible);
+  };
+
+  const toggleNavbar = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <div>
@@ -44,13 +59,12 @@ const Navbar = ({ onLeave }) => {
             <FaHome className="mr-3" />
             <span className="text-lg">Inicio</span>
           </a>
-          <a href="#about" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          <Link href="/FAQs" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
-          </a>
-          {/* Botón Abandonar Sesión */}
+          </Link>
           <button
-            onClick={onLeave} // Llamamos a la función onLeave cuando el usuario hace clic
+            onClick={onLeave} // Ahora onLeave está definido como prop
             className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
           >
             <FaArrowLeft className="mr-3" />
@@ -59,28 +73,49 @@ const Navbar = ({ onLeave }) => {
         </div>
       </div>
 
+      {/* Botón para ocultar/mostrar la barra de navegación en escritorio */}
+      <div className="hidden md:block fixed top-4 left-4 z-50">
+        <button 
+          onClick={toggleDesktopNav} 
+          className="text-white bg-[#5B18E2] p-2 rounded-full hover:bg-[#4A14B8] transition-colors duration-200"
+        >
+          {isDesktopNavVisible ? <FaChevronLeft size={24} /> : <FaChevronRight size={24} />}
+        </button>
+      </div>
+
       {/* Menú superior para pantallas grandes */}
-      <div className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-[#c3ccfe] min-h-screen flex-col items-center py-8 z-50">
-       <img src="/POMo-logo.png" alt="Logo" />
+      <div className={`hidden md:flex fixed top-0 left-0 h-screen w-64 bg-[#c3ccfe] flex-col items-center py-8 z-40 transition-all duration-300 ${
+        isVisible ? 'w-64' : 'w-0 overflow-hidden'
+      }`}>
+        <img src="/POMo-logo.png" alt="Logo" className="mb-6" />
         <div className="flex flex-col space-y-6">
-          <a href="#home" className="flex items-center text-[#5B18E2] hover:text-white transition-colors duration-200">
+          <a href="#home" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
             <FaHome className="mr-3" />
             <span className="text-lg">Inicio</span>
           </a>
-          <a href="#faqs" className="flex items-center text-[#5B18E2] hover:text-white transition-colors duration-200">
+          <Link href="/FAQs" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
-          </a>
+          </Link>
         
           <button
-            onClick={onLeave} 
-            className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
+            onClick={onLeave} // Ahora onLeave está definido como prop
+            className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200"
           >
-            <FaArrowLeft className="mr-3 text-[#5B18E2]" />
-            <span className="text-[#5B18E2]">Abandonar la sesión</span>
+            <FaArrowLeft className="mr-3" />
+            <span className="text-lg">Abandonar la sesión</span>
           </button>
         </div>
+        
+        <button onClick={toggleNavbar} className="absolute top-4 right-4">
+          {/* Ícono de chevron */}
+        </button>
       </div>
+
+      {/* Nuevo div para el fondo */}
+      <div className={`hidden md:block fixed top-0 left-0 h-screen w-64 bg-[#c3ccfe] z-30 transition-all duration-300 ${
+        isDesktopNavVisible ? 'transform translate-x-0' : 'transform -translate-x-full'
+      }`}></div>
     </div>
   );
 };
