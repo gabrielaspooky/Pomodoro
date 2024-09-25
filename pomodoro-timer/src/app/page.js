@@ -4,7 +4,6 @@ import TimerDisplay from '../../components/ui/TimerDisplay';
 import Onboarding from "../../components/Onboarding";
 import MemoryMatch from '../../components/ui/MemoryMatch';
 import BreakTimeModal from '../../components/ui/BreakTimeModal';
-import JokeFetcher from '../../components/ui/JokerFetcher';
 import ApiFetcher from '../../components/ApiFetcher';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import SessionEnding from '../../components/SessionEnd';
@@ -33,11 +32,11 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-      <Navbar onLeave={handleLeave} /> {/* Navbar siempre visible */}
+      <Navbar onLeave={handleLeave} /> 
 
       {showSessionEnd ? (
-        <SessionEnding onRejoin={handleRejoin} /> // Mostrar SessionEnding si se abandona
-      ) : !userData ? ( // Cambia aquí para usar userData
+        <SessionEnding onRejoin={handleRejoin} /> 
+      ) : !userData ? ( 
         <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
         <>
@@ -45,7 +44,6 @@ const Home = () => {
           <TimerDisplay username={userData.username} activity={userData.activity} />
           <MemoryMatch />
           <BreakTimeModal />
-          <JokeFetcher />
           <ApiFetcher />
           <PomodoroFaq />
         </>

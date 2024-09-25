@@ -1,26 +1,26 @@
-import { MongoClient } from 'mongodb';
+require('dotenv').config(); // Cargar variables de entorno desde .env
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = process.env.MONGODB_URI;
-const options = {};
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@pomobreaktime.mvbx8.mongodb.net/?retryWrites=true&w=majority&appName=PomoBreakTime`;
 
-let client;
-let clientPromise;
-
-if (!process.env.MONGODB_URI) {
-  throw new Error("Por favor añade tu MongoDB URI a las variables de entorno");
-}
-
-if (process.env.NODE_ENV === 'development') {
-
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
   }
-  clientPromise = global._mongoClientPromise;
-} else {
- 
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+});
+
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Conexión exitosa a MongoDB!");
+    return client.db(); // Retorna la instancia de la base de datos
+  } catch (error) {
+    console.error("Error al conectar a MongoDB:", error);
+    throw error;
+  }
 }
 
-export default clientPromise;
+module.exports = { connectToDatabase, client };

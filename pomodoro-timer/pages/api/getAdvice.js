@@ -1,23 +1,23 @@
-import clientPromise from '../../src/lib/mongodb';
+import clientPromise from '../../src/lib/mongodb'; // Asegúrate de que esta ruta sea correcta
 
 export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Método no permitido' });
+  }
+
   try {
     const client = await clientPromise;
-    const db = client.db('productive_advice');  // Asegúrate de que el nombre sea el correcto
-    const collection = db.collection('advices'); // Usa solo el nombre de la colección sin puntos
-
-    // Obtener el primer documento
+    const db = client.db('breakTimeAdvice');
+    const collection = db.collection('BreakTimeTips');
+    
+    // Puedes ajustar esta consulta según tus necesidades
     const result = await collection.findOne({});
 
-    // Manejar el caso en el que no se encuentre el documento
     if (!result) {
       return res.status(404).json({ error: "No se encontraron consejos" });
     }
 
-    // Obtener los consejos del campo 'productive_advice'
-    const consejos = result.productive_advice;
-
-    // Devolver los consejos
+    const consejos = result.consejos;
     res.status(200).json({ consejos });
   } catch (error) {
     console.error(error);
