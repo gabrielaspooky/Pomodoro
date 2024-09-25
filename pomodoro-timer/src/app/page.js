@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import TimerDisplay from '../../components/ui/TimerDisplay';
 import Onboarding from "../../components/Onboarding";
+import MemoryMatch from '../../components/ui/MemoryMatch';
+import BreakTimeModal from '../../components/ui/BreakTimeModal';
 import ApiFetcher from '../../components/ApiFetcher';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import SessionEnding from '../../components/SessionEnd';
-import UserCard from '../../components/ui/UserCard';
 import Navbar from '../../components/ui/Navbar';
+import UserCard from '../../components/ui/UserCard';
 
 const Home = () => {
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
@@ -30,15 +32,15 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
-      <Navbar onLeave={handleLeave} />
-      
+      <Navbar onLeave={handleLeave} /> 
+
       {showSessionEnd ? (
-        <SessionEnding onRejoin={handleRejoin} />
-      ) : !userData ? (
+        <SessionEnding onRejoin={handleRejoin} /> 
+      ) : !userData ? ( 
         <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
         <>
-          <UserCard username={userData.username} activity={userData.activity} />
+          <UserCard username={userData.username} activity={userData.activity} /> 
           <TimerDisplay username={userData.username} activity={userData.activity} />
           <BreakTimeModal />
           <ApiFetcher />

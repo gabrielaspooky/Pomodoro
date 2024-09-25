@@ -1,7 +1,7 @@
 import { Outfit } from 'next/font/google';
 import './globals.css';
-import { ChakraProvider } from '@chakra-ui/react';
-import ClientLayout from './ClientLayout';
+import Navbar from '../../components/ui/Navbar';
+import { ChakraProvider } from '@chakra-ui/react'; // Asegúrate de importar ChakraProvider
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -13,11 +13,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className={outfit.className}>
+      <body className={`${outfit.className} flex`}>
+        {/* ChakraProvider envuelve toda la aplicación */}
         <ChakraProvider>
-          <ClientLayout>
+          <Navbar /> {/* Aquí va el Navbar */}
+          <main className="flex-1 ml-64"> {/* Ajusta el margin-left según el diseño */}
             {children}
-          </ClientLayout>
+          </main>
         </ChakraProvider>
       </body>
     </html>
