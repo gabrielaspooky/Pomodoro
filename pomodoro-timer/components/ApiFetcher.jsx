@@ -5,12 +5,14 @@ export default function ApiFetcher() {
   const [consejos, setConsejos] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true); // Estado de carga
+  const [statusCode, setStatusCode] = useState(null); // Nuevo estado para el código de estado
 
   useEffect(() => {
     async function fetchConsejos() {
       setLoading(true); // Iniciar carga
       try {
         const res = await fetch('/api/getAdvice');
+        setStatusCode(res.status); // Guardar el código de estado
         if (!res.ok) {
           throw new Error(`Error al obtener los datos: ${res.status}`);
         }
@@ -36,7 +38,14 @@ export default function ApiFetcher() {
   }
 
   if (error) {
-    return <div>Error: {error}</div>; // Mostrar el error en la interfaz
+    return (
+      <div>
+        <h2>Error al cargar los consejos</h2>
+        <p>Mensaje de error: {error}</p>
+        {statusCode && <p>Código de estado: {statusCode}</p>}
+        <p>Por favor, intenta recargar la página o contacta al soporte si el problema persiste.</p>
+      </div>
+    );
   }
 
   return (

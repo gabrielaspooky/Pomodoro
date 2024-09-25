@@ -1,4 +1,4 @@
-import clientPromise from '../../src/lib/mongodb'; // Asegúrate de que esta ruta sea correcta
+import clientPromise from '../../src/lib/mongodb';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -10,17 +10,19 @@ export default async function handler(req, res) {
     const db = client.db('breakTimeAdvice');
     const collection = db.collection('BreakTimeTips');
     
-    // Puedes ajustar esta consulta según tus necesidades
     const result = await collection.findOne({});
 
     if (!result) {
       return res.status(404).json({ error: "No se encontraron consejos" });
     }
 
-    const consejos = result.consejos;
-    res.status(200).json({ consejos });
+    if (!Array.isArray(result.consejos)) {
+      return res.status(500).json({ error: "Formato de datos incorrecto" });
+    }
+
+    res.status(200).json({ consejos: result.consejos });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Hubo un problema al obtener los datos' });
+    console.error("Error en getAdvice:", error);
+    res.status(500).json({ error: 'Hubo un problema al obtener los datos', details: error.message });
   }
 }

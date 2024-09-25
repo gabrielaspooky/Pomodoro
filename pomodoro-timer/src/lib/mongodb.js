@@ -1,7 +1,7 @@
 require('dotenv').config(); // Cargar variables de entorno desde .env
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@pomobreaktime.mvbx8.mongodb.net/?retryWrites=true&w=majority&appName=PomoBreakTime`;
+const uri = `mongodb+srv://gabrielanava:${process.env.DB_PASSWORD}@pomobreaktime.mvbx8.mongodb.net/?retryWrites=true&w=majority&appName=PomoBreakTime`;
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -11,16 +11,15 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Conexión exitosa a MongoDB!");
-    return client.db(); // Retorna la instancia de la base de datos
-  } catch (error) {
-    console.error("Error al conectar a MongoDB:", error);
-    throw error;
+let clientPromise;
+
+if (process.env.NODE_ENV === 'development') {
+  if (!global._mongoClientPromise) {
+    global._mongoClientPromise = client.connect();
   }
+  clientPromise = global._mongoClientPromise;
+} else {
+  clientPromise = client.connect();
 }
 
-module.exports = { connectToDatabase, client };
+module.exports = clientPromise;
