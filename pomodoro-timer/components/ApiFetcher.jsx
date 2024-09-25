@@ -4,15 +4,16 @@ import { useEffect, useState } from 'react';
 export default function ApiFetcher() {
   const [consejos, setConsejos] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [statusCode, setStatusCode] = useState(null); // Nuevo estado para el código de estado
+  const [loading, setLoading] = useState(true);
+  const [statusCode, setStatusCode] = useState(null);
+  const [consejoAleatorio, setConsejoAleatorio] = useState(null);
 
   useEffect(() => {
     async function fetchConsejos() {
-      setLoading(true); // Iniciar carga
+      setLoading(true);
       try {
         const res = await fetch('/api/getAdvice');
-        setStatusCode(res.status); // Guardar el código de estado
+        setStatusCode(res.status);
         if (!res.ok) {
           throw new Error(`Error al obtener los datos: ${res.status}`);
         }
@@ -23,46 +24,52 @@ export default function ApiFetcher() {
         }
 
         setConsejos(data.consejos);
+        if (data.consejos.length > 0) {
+          const indiceAleatorio = Math.floor(Math.random() * data.consejos.length);
+          setConsejoAleatorio(data.consejos[indiceAleatorio]);
+        }
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.message);
       } finally {
-        setLoading(false); // Finalizar carga
+        setLoading(false);
       }
     }
     fetchConsejos(); 
   }, []);
 
   if (loading) {
-    return <div>Cargando...</div>; // Indicador de carga
+    return <div className="text-center text-xl font-semibold">Cargando...</div>;
   }
 
   if (error) {
     return (
-      <div>
-        <h2>Error al cargar los consejos</h2>
-        <p>Mensaje de error: {error}</p>
-        {statusCode && <p>Código de estado: {statusCode}</p>}
-        <p>Por favor, intenta recargar la página o contacta al soporte si el problema persiste.</p>
+      <div className="max-w-md mx-auto mt-8 p-6 bg-red-100 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-red-700 mb-4">Error al cargar los consejos</h2>
+        <p className="text-red-600 mb-2">Mensaje de error: {error}</p>
+        {statusCode && <p className="text-red-600 mb-2">Código de estado: {statusCode}</p>}
+        <p className="text-red-600">Por favor, intenta recargar la página o contacta al soporte si el problema persiste.</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Consejos Productivos</h1>
-      {consejos.length === 0 ? (
-        <p>No hay consejos disponibles</p>
-      ) : (
-        <ul>
-          {consejos.map((consejo, index) => (
-            <li key={consejo._id || index}>
-              <h3>{consejo.advice}</h3>
-              <p>{consejo.descripcion}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-blue-300 to-purple-300 flex items-center justify-center p-4">
+      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
+          <h1 className="text-3xl font-bold text-center text-white">Consejo Productivo del Día</h1>
+        </div>
+        <div className="p-8">
+          {consejoAleatorio ? (
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">{consejoAleatorio.advice}</h3>
+              <p className="text-lg text-gray-600 leading-relaxed">{consejoAleatorio.descripcion}</p>
+            </div>
+          ) : (
+            <p className="text-center text-gray-500 italic">No hay consejos disponibles</p>
+          )}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
