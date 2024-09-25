@@ -20,7 +20,7 @@ const faqs = [
   },
 ];
 
-export default function PomodoroFaq() {
+export default function PomodoroFaqs() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleFaq = (index) => {

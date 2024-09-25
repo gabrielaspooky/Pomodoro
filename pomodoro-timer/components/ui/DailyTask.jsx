@@ -79,19 +79,19 @@ export default function SetDailyTask({ onActivitySelect }) {
                 className="col-span-2 bg-[#F2F2F7] rounded-xl p-4 flex flex-col items-center justify-center"
               >
                 <form onSubmit={handleCustomSubmit} className="w-full">
-                  <div className="flex items-center w-full mb-2">
+                  <div className="flex items-center w-full mb-2 bg-white rounded-lg overflow-hidden shadow-sm">
                     <Input
                       type="text"
                       value={customActivity}
                       onChange={(e) => setCustomActivity(e.target.value)}
                       placeholder="Escribe tu actividad"
-                      className="flex-grow bg-transparent border-none text-lg placeholder-[#8E8E93] focus:outline-none px-2 py-1"
+                      className="flex-grow bg-transparent border-none text-lg placeholder-[#8E8E93] focus:outline-none px-4 py-2"
                       autoFocus
                     />
                     <Button
                       type="button"
                       onClick={() => setIsCustom(false)}
-                      className="ml-2 p-2 text-[#8E8E93] hover:text-[#2D2D2D]"
+                      className="p-2 text-[#8E8E93] hover:text-[#2D2D2D] bg-transparent"
                       variant="ghost"
                     >
                       <X className="w-5 h-5" />
@@ -99,7 +99,7 @@ export default function SetDailyTask({ onActivitySelect }) {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full mt-2 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300 text-white"
+                    className="w-full mt-3 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 text-white font-medium py-2 rounded-lg transition-all hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500"
                   >
                     Seleccionar
                   </Button>
