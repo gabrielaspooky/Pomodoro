@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useState, useRef, useEffect } from 'react';
 import { FaHome, FaInfoCircle, FaArrowLeft, FaBars, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
+const Navbar = ({ onLeave }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktopNavVisible, setIsDesktopNavVisible] = useState(true);
   const menuRef = useRef(null);
@@ -24,7 +24,6 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
   }, []);
 
   useEffect(() => {
-    // Añadir o remover una clase al body cuando cambia isDesktopNavVisible
     document.body.classList.toggle('nav-hidden', !isDesktopNavVisible);
   }, [isDesktopNavVisible]);
 
@@ -32,13 +31,9 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
     setIsDesktopNavVisible(!isDesktopNavVisible);
   };
 
-  const toggleNavbar = () => {
-    setIsVisible(!isVisible);
-  };
-
   return (
     <div>
-      {/* Botón del menú burger */}
+      {/* Botón del menú burger para móviles */}
       <div className="fixed top-0 left-0 p-4 z-50 md:hidden">
         <button 
           onClick={toggleMenu} 
@@ -48,7 +43,7 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
         </button>
       </div>
 
-      {/* Menú lateral */}
+      {/* Menú lateral para móviles */}
       <div 
         ref={menuRef}
         className={`fixed top-0 left-0 h-screen w-64 bg-[#815ef3] min-h-screen flex flex-col items-center py-8 z-50 md:hidden transition-transform duration-300 ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}
@@ -64,7 +59,7 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
             <span className="text-lg">FAQ's</span>
           </Link>
           <button
-            onClick={onLeave} // Ahora onLeave está definido como prop
+            onClick={onLeave}
             className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
           >
             <FaArrowLeft className="mr-3" />
@@ -83,9 +78,9 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
         </button>
       </div>
 
-      {/* Menú superior para pantallas grandes */}
-      <div className={`hidden md:flex fixed top-0 left-0 h-screen w-64 bg-[#c3ccfe] flex-col items-center py-8 z-40 transition-all duration-300 ${
-        isVisible ? 'w-64' : 'w-0 overflow-hidden'
+      {/* Menú para pantallas grandes */}
+      <div className={`hidden md:flex fixed top-0 left-0 h-screen bg-[#c3ccfe] flex-col items-center py-8 z-40 transition-all duration-300 ${
+        isDesktopNavVisible ? 'w-64' : 'w-0 overflow-hidden'
       }`}>
         <img src="/POMo-logo.png" alt="Logo" className="mb-6" />
         <div className="flex flex-col space-y-6">
@@ -99,20 +94,16 @@ const Navbar = ({ isVisible, setIsVisible, onLeave }) => {
           </Link>
         
           <button
-            onClick={onLeave} // Ahora onLeave está definido como prop
+            onClick={onLeave}
             className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200"
           >
             <FaArrowLeft className="mr-3" />
             <span className="text-lg">Abandonar la sesión</span>
           </button>
         </div>
-        
-        <button onClick={toggleNavbar} className="absolute top-4 right-4">
-          {/* Ícono de chevron */}
-        </button>
       </div>
 
-      {/* Nuevo div para el fondo */}
+      {/* Fondo de la navbar para escritorio */}
       <div className={`hidden md:block fixed top-0 left-0 h-screen w-64 bg-[#c3ccfe] z-30 transition-all duration-300 ${
         isDesktopNavVisible ? 'transform translate-x-0' : 'transform -translate-x-full'
       }`}></div>
