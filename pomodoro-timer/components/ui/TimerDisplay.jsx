@@ -8,6 +8,7 @@ import UserLeftToast from './LeaveToast';
 import MemoryMatch from './MemoryMatch';
 import Navbar from './Navbar';
 import Pom from './Pom';
+import BreakTimeModal from './BreakTimeModal';
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
@@ -19,7 +20,8 @@ const PomodoroTimer = () => {
   const [users, setUsers] = useState({});
   const [newUser, setNewUser] = useState(null);
   const [userLeft, setUserLeft] = useState(null);
-  const [cycleCount, setCycleCount] = useState(0); 
+  const [cycleCount, setCycleCount] = useState(0);
+  const [showBreakModal, setShowBreakModal] = useState(false);
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
@@ -55,6 +57,12 @@ const PomodoroTimer = () => {
     return () => clearInterval(interval);
   }, [isActive, isBreak, socket]); 
   
+  useEffect(() => {
+    if (isBreak) {
+      setShowBreakModal(true);
+    }
+  }, [isBreak]);
+
   const handleUserJoined = (users) => {
     const userIds = Object.keys(users);
     const latestUserId = userIds[userIds.length - 1];
@@ -124,6 +132,10 @@ const PomodoroTimer = () => {
     });
   };
 
+  const handleCloseBreakModal = () => {
+    setShowBreakModal(false);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
      
@@ -165,6 +177,7 @@ const PomodoroTimer = () => {
       </div>
       {newUser && <UserJoinedToast user={newUser} />}
       {userLeft && <UserLeftToast user={userLeft} />}
+      <BreakTimeModal isBreak={showBreakModal} onClose={handleCloseBreakModal} />
     </div>
   );
 };

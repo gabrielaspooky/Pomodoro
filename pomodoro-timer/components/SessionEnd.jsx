@@ -5,7 +5,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { useRouter } from 'next/navigation'
 
-export default function SessionEnding({ onRejoin }) { // Acepta onRejoin como prop
+export default function SessionEnding({ onRejoin }) { 
   const router = useRouter();
 
   const handleRejoinSession = () => {
