@@ -55,7 +55,7 @@ export default function Footer() {
       transition="transform 0.1s ease-in-out"
     >
       <Text fontSize="sm">
-        Hecho con amor por{' '}
+        Hecho con ❤️ por{' '}
         <Link
           fontWeight="bold"
           textDecoration="underline"
@@ -72,7 +72,7 @@ export default function Footer() {
           <ModalHeader color="purple.700" fontSize="2xl" fontWeight="bold" textAlign="center">Tecnologías utilizadas</ModalHeader>
           <ModalCloseButton color="purple.500" />
           <ModalBody pb={6}>
-            <Text mb={6} color="purple.700" fontSize="lg" textAlign="center">Este proyecto ha sido desarrollado con las siguientes tecnologías:</Text>
+            <Text mb={6} color="purple.700" fontSize="lg" textAlign="center">Este proyecto ha sido desarrollado con ayuda de las siguientes tecnologías:</Text>
             <Flex justify="center" align="center" wrap="wrap" gap={4}>
               <Image
                 src="https://download.logo.wine/logo/React_(web_framework)/React_(web_framework)-Logo.wine.png"
