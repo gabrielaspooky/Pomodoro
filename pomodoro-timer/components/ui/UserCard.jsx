@@ -15,7 +15,7 @@ const UserCard = ({ username, activity }) => {
   const [randomImage, setRandomImage] = useState('');
 
   useEffect(() => {
-    // Seleccionar una imagen aleatoria solo una vez cuando el componente se monta
+
     const image = imageUrls[Math.floor(Math.random() * imageUrls.length)];
     setRandomImage(image);
   }, []);
@@ -31,7 +31,7 @@ const UserCard = ({ username, activity }) => {
       </div>
       <div className="ml-4">
         <h2 className="text-lg font-semibold text-gray-700">{username}</h2>
-        <p className="text-sm text-blue-500 mt-1">{activity ? `está en una sesión de ${activity.toLowerCase()}` : 'sin actividad'}</p>
+        <p className="text-sm text-blue-500 mt-1">{activity ? `está en una sesión de ${activity.toLowerCase()}` : 'está en la sesión'}</p>
       </div>
     </div>
   );
