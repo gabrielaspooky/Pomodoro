@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from 'lucide-react';
@@ -28,11 +29,11 @@ export default function PomodoroFaq() {
   };
 
   return (
-    <div className="max-w mx-auto p-4 sm:p-6 md:p-8 bg-white">
-      <h3 className="text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-8 md:mb-10">
+    <div className="pomodoro-faq max-w-3xl mx-auto p-4 sm:p-6 md:p-8 bg-white rounded-lg shadow-lg">
+      <h3 className="pomodoro-faq__title text-2xl sm:text-3xl md:text-4xl text-center mb-6 sm:mb-8 md:mb-10 text-gray-800">
         Preguntas frecuentes sobre la técnica pomodoro
       </h3>
-      <div className="space-y-4 sm:space-y-6">
+      <div className="pomodoro-faq__list space-y-4 sm:space-y-6">
         {faqs.map((faq, index) => (
           <motion.div
             key={index}

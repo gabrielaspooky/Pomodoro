@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import TimerDisplay from '../../components/ui/TimerDisplay';
 import Onboarding from "../../components/Onboarding";
 import BreakTimeModal from '../../components/ui/BreakTimeModal';
-import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import SessionEnding from '../../components/SessionEnd';
 import Navbar from '../../components/ui/Navbar';
 import UserCard from '../../components/ui/UserCard';
@@ -41,7 +40,6 @@ const Home = () => {
           <UserCard username={userData.username} activity={userData.activity} /> 
           <TimerDisplay username={userData.username} activity={userData.activity} />
           <BreakTimeModal />
-          <PomodoroFaq />
         </>
       )}
     </div>

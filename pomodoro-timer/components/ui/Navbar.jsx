@@ -54,7 +54,7 @@ const Navbar = ({ onLeave }) => {
             <FaHome className="mr-3" />
             <span className="text-lg">Inicio</span>
           </a>
-          <Link href="/FAQs" className="flex items-center text-gray-300 hover:text-white transition-colors duration-200">
+          <Link href="/faqspage" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </Link>
@@ -90,7 +90,7 @@ const Navbar = ({ onLeave }) => {
             <FaHome className="mr-3" />
             <span className="text-lg">Inicio</span>
           </a>
-          <Link href="/FAQs" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
+          <Link href="/faqspage" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
             <FaInfoCircle className="mr-3" />
             <span className="text-lg">FAQ's</span>
           </Link>
