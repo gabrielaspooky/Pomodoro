@@ -71,13 +71,6 @@ export default function BreakTimeModal({ isBreak, onClose }) {
         </div>
       )}
 
-      {/* Mostramos MemoryMatch fuera del modal */}
-      {action === "play" && (
-        <div className="mt-8">
-          <MemoryMatch />
-        </div>
-      )}
-
       {action === "joke" && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white w-96 p-6 rounded-lg relative">

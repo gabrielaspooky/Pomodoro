@@ -6,7 +6,6 @@ import UserCard from './UserCard';
 import UserJoinedToast from './JoinToast';
 import UserLeftToast from './LeaveToast';  
 import MemoryMatch from './MemoryMatch';
-import Navbar from './Navbar';
 import Pom from './Pom';
 import BreakTimeModal from './BreakTimeModal';
 

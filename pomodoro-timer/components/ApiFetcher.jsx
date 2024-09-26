@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
+import TextLoading from './ui/LoadingDots';
 
 export default function ApiFetcher() {
   const [consejos, setConsejos] = useState([]);
@@ -39,7 +40,10 @@ export default function ApiFetcher() {
   }, []);
 
   if (loading) {
-    return <div className="text-center text-xl font-semibold">Cargando...</div>;
+    return <div className="text-center text-xl font-semibold">
+
+      <TextLoading />
+    </div>;
   }
 
   if (error) {

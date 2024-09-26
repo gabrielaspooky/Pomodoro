@@ -2,9 +2,7 @@
 import React, { useState } from 'react';
 import TimerDisplay from '../../components/ui/TimerDisplay';
 import Onboarding from "../../components/Onboarding";
-import MemoryMatch from '../../components/ui/MemoryMatch';
 import BreakTimeModal from '../../components/ui/BreakTimeModal';
-import ApiFetcher from '../../components/ApiFetcher';
 import PomodoroFaq from '../../components/ui/PomodoFAQs';
 import SessionEnding from '../../components/SessionEnd';
 import Navbar from '../../components/ui/Navbar';
@@ -43,12 +41,11 @@ const Home = () => {
           <UserCard username={userData.username} activity={userData.activity} /> 
           <TimerDisplay username={userData.username} activity={userData.activity} />
           <BreakTimeModal />
-        <ApiFetcher />
           <PomodoroFaq />
         </>
       )}
     </div>
   );
-};
+}
 
 export default Home;
