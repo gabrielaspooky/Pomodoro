@@ -9,7 +9,7 @@ const UserJoinedToast = ({ user }) => {
 
   useEffect(() => {
     if (user && !hasToastFired.current) { 
-      toast.success(`${user.name || 'Un usuario'} se ha unido a la sala!`, {
+      toast.success(`${user.name || '¡Un nuevo usuario'} se ha unido a la sala!`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,

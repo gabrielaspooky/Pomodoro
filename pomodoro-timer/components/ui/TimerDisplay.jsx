@@ -21,6 +21,7 @@ const PomodoroTimer = () => {
   const [userLeft, setUserLeft] = useState(null);
   const [cycleCount, setCycleCount] = useState(0);
   const [showBreakModal, setShowBreakModal] = useState(false);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');

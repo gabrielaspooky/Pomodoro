@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const UserLeftToast = ({ user }) => {
   useEffect(() => {
     if (user) {
-      toast.info(`${user.name} ha abandonado la sala.`, {
+      toast.info("Alguien ha abandonado la sala", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

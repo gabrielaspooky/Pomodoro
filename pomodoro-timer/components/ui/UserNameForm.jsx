@@ -1,34 +1,40 @@
-'use client'
+'use client';
 
-import { Input, Box, Button, Heading, Text, VStack, Icon, Flex } from '@chakra-ui/react'
-import { FaUser } from 'react-icons/fa'
-import { useState } from 'react'
+import { Input, Box, Button, Heading, Text, VStack, Icon, Flex } from '@chakra-ui/react';
+import { FaUser } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 export default function UserNameForm({ onSubmit }) {
-  const [username, setUsername] = useState('')
-  const [message, setMessage] = useState('')
+  const [username, setUsername] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (username.length >= 2) {
-      setMessage(`¡Pom te da la bienvenida, ${username}!`)
-      onSubmit(username)
-      setUsername('')
+      setMessage(`¡Pom te da la bienvenida, ${username}!`);
+      onSubmit(username); // Enviar el username al componente padre
+      setUsername('');
     } else {
-      setMessage("El nombre de usuario debe tener al menos 2 caracteres.")
+      setMessage('El nombre de usuario debe tener al menos 2 caracteres.');
     }
-  }
+  };
+
+
+  useEffect(() => {
+    if (message.includes('bienvenida')) {
+
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 2000);
+
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   return (
     <Box position="relative" width="100%" maxWidth="400px" margin="auto" padding={6} borderRadius="lg" boxShadow="xl">
-      <Box
-        position="absolute"
-        top="-20px"
-        left="50%"
-        transform="translateX(-50%)"
-        p={4}
-
-      >
+      <Box position="absolute" top="-20px" left="50%" transform="translateX(-50%)" p={4}>
         <Icon as={FaUser} w={5} h={5} color="purple.500" />
       </Box>
 
@@ -84,5 +90,5 @@ export default function UserNameForm({ onSubmit }) {
         )}
       </VStack>
     </Box>
-  )
+  );
 }
