@@ -9,7 +9,7 @@ import MemoryMatch from './MemoryMatch';
 import Pom from './Pom';
 import BreakTimeModal from './BreakTimeModal';
 
-const PomodoroTimer = ({ username }) => {  // Añade username como prop
+const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -176,11 +176,7 @@ const PomodoroTimer = ({ username }) => {  // Añade username como prop
       </div>
       {newUser && <UserJoinedToast user={newUser} />}
       {userLeft && <UserLeftToast user={userLeft} />}
-      <BreakTimeModal 
-        isBreak={showBreakModal} 
-        onClose={handleCloseBreakModal} 
-        username={username}  // Pasa el username como prop
-      />
+      <BreakTimeModal isBreak={showBreakModal} onClose={handleCloseBreakModal} />
     </div>
   );
 };

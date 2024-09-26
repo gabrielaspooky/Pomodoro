@@ -30,7 +30,7 @@ const UserCard = ({ username, activity }) => {
         />
       </div>
       <div className="ml-4">
-        <h2 className="text-lg font-semibold text-gray-700">{username || 'Usuario'}</h2>
+        <h2 className="text-lg font-semibold text-gray-700">{username}</h2>
         <p className="text-sm text-blue-500 mt-1">{activity ? `está en una sesión de ${activity.toLowerCase()}` : 'sin actividad'}</p>
       </div>
     </div>
