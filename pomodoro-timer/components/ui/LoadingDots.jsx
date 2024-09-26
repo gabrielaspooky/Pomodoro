@@ -15,7 +15,7 @@ export default function MinimalistTextLoading() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-100 bg-opacity-80 z-50">
       <motion.div
         className="flex space-x-2 mb-4"
         variants={containerVariants}

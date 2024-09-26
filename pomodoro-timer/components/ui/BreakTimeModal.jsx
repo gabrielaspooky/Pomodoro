@@ -56,7 +56,7 @@ export default function BreakTimeModal({ isBreak, onClose }) {
                   onClick={handleSuggestion}
                   className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
                 >
-                  Sugiéreme algo productivo
+                  Dame una sugerencia
                 </Button>
                 <Button 
                   size="lg" 
@@ -97,7 +97,6 @@ export default function BreakTimeModal({ isBreak, onClose }) {
               <X className="w-6 h-6" />
             </button>
 
-            <h2 className="text-2xl font-semibold mb-4 text-center">Sugerencia Productiva</h2>
             <ApiFetcher />
           </div>
         </div>

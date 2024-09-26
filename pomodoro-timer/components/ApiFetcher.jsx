@@ -61,7 +61,7 @@ export default function ApiFetcher() {
     <div className="bg-gradient-to-br from-blue-300 to-purple-300 p-4 rounded-lg">
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
-          <h1 className="text-3xl font-bold text-center text-white">Consejo Productivo del Día</h1>
+          <h1 className="text-3xl font-bold text-center text-white">Durante tu tiempo de descanso, puedes...</h1>
         </div>
         <div className="p-8">
           {consejoAleatorio ? (
