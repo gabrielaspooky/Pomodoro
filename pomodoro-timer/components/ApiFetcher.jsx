@@ -41,7 +41,6 @@ export default function ApiFetcher() {
 
   if (loading) {
     return <div className="text-center text-xl font-semibold">
-
       <TextLoading />
     </div>;
   }

@@ -2,7 +2,7 @@ import { Outfit } from 'next/font/google';
 import './globals.css';
 import Navbar from '../../components/ui/Navbar';
 import { ChakraProvider } from '@chakra-ui/react'; // Asegúrate de importar ChakraProvider
-
+import Footer from '../../components/ui/Footer';
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata = {
@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
           <main className="flex-1 ml-64"> {/* Ajusta el margin-left según el diseño */}
             {children}
           </main>
+          <Footer />
         </ChakraProvider>
       </body>
     </html>

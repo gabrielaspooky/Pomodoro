@@ -5,10 +5,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserJoinedToast = ({ user }) => {
-  const hasToastFired = useRef(false); // Usamos useRef para mantener la referencia entre renders
+  const hasToastFired = useRef(false); 
 
   useEffect(() => {
-    if (user && !hasToastFired.current) {  // Solo mostrar el toast si no ha sido mostrado
+    if (user && !hasToastFired.current) { 
       toast.success(`${user.name || 'Un usuario'} se ha unido a la sala!`, {
         position: "top-right",
         autoClose: 5000,
@@ -18,7 +18,7 @@ const UserJoinedToast = ({ user }) => {
         draggable: true,
         progress: undefined,
       });
-      hasToastFired.current = true;  // Marcar como true después de mostrar el toast
+      hasToastFired.current = true;  
     }
   }, [user]);
 

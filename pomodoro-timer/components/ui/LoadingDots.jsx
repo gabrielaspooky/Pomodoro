@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-export default function MinimalistTextLoading() {
+export default function TextLoading() {
   const dotVariants = {
     hidden: { opacity: 0.3 },
     visible: { opacity: 1 },
