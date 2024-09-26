@@ -99,7 +99,7 @@ export default function SetDailyTask({ onActivitySelect }) {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full mt-2 bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300 text-white"
+                    className="w-full mt-2 bg-purple-500 rounded-lg text-white"
                   >
                     Seleccionar
                   </Button>

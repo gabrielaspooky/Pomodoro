@@ -39,7 +39,7 @@ export default function BreakTimeModal({ isBreak, onClose, username }) {
             </button>
 
             <div className="text-center">
-              <h2 className="text-3xl font-bold mb-6 text-indigo-600">
+              <h2 className="text-2xl mb-6 text-indigo-600">
                 ¿Qué quieres hacer en tu break time, {username || 'amig@'}?
               </h2>
 
