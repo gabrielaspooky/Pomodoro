@@ -82,7 +82,9 @@ const Navbar = ({ onLeave }) => {
       <div className={`hidden md:flex fixed top-0 left-0 h-screen bg-[#c3ccfe] flex-col items-center py-8 z-40 transition-all duration-300 ${
         isDesktopNavVisible ? 'w-64' : 'w-0 overflow-hidden'
       }`}>
-        <img src="/POMo-logo.png" alt="Logo" className="mb-6" />
+        <Link href="/">
+          <img src="/POMo-logo.png" alt="Logo" className="mb-6 cursor-pointer" />
+        </Link>
         <div className="flex flex-col space-y-6">
           <a href="#home" className="flex items-center text-[#5B18E2] hover:text-[#4A14B8] transition-colors duration-200">
             <FaHome className="mr-3" />
