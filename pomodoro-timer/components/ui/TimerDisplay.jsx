@@ -8,8 +8,11 @@ import UserLeftToast from './LeaveToast';
 import MemoryMatch from './MemoryMatch';
 import Pom from './Pom';
 import BreakTimeModal from './BreakTimeModal';
+import { useContext } from 'react';
+import { UsernameContext } from '../../context/UsernameContext';
 
 const PomodoroTimer = () => {
+  const { username } = useContext(UsernameContext);
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -21,13 +24,14 @@ const PomodoroTimer = () => {
   const [userLeft, setUserLeft] = useState(null);
   const [cycleCount, setCycleCount] = useState(0);
   const [showBreakModal, setShowBreakModal] = useState(false);
-  const [username, setUsername] = useState('');
 
   useEffect(() => {
+    const storedUsername = username; // Obtener el username del contexto
+
     const socketIo = io('https://socketserver-production-3e3c.up.railway.app');
     setSocket(socketIo);
 
-    socketIo.emit('join_room', room);
+    socketIo.emit('join_room', { room, username: storedUsername }); // Enviar username al unirse a la sala
 
     socketIo.on('user_joined', (users) => {
       handleUserJoined(users);
@@ -41,7 +45,7 @@ const PomodoroTimer = () => {
       socketIo.emit('leave_room', room);
       socketIo.disconnect();
     };
-  }, [room]);
+  }, [room, username]);
 
   useEffect(() => {
     let interval = null;

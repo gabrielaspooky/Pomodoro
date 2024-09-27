@@ -3,7 +3,9 @@ import './globals.css';
 import Navbar from '../../components/ui/Navbar';
 import { ChakraProvider } from '@chakra-ui/react'; // Asegúrate de importar ChakraProvider
 import Footer from '../../components/ui/Footer';
+import { UsernameProvider } from '../../context/UsernameContext';
 import FAQsPage from '../../pages/faqspage';
+
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata = {
@@ -15,15 +17,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${outfit.className} flex`}>
-        {/* ChakraProvider envuelve toda la aplicación */}
-        <ChakraProvider>
-          <Navbar /> {/* Aquí va el Navbar */}
-          <main className="flex-1 ml-64"> {/* Ajusta el margin-left según el diseño */}
-            {children}
-            <FAQsPage />
-          </main>
-          <Footer />
-        </ChakraProvider>
+        <UsernameProvider>
+          {/* ChakraProvider envuelve toda la aplicación */}
+          <ChakraProvider>
+            <Navbar /> {/* Aquí va el Navbar */}
+            <main className="flex-1 ml-64"> {/* Ajusta el margin-left según el diseño */}
+              {children}
+              <FAQsPage /> {/* Asegúrate de que FAQsPage esté en la posición correcta */}
+            </main>
+            <Footer />
+          </ChakraProvider>
+        </UsernameProvider>
       </body>
     </html>
   );

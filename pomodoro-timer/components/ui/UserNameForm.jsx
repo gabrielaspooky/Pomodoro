@@ -2,10 +2,11 @@
 
 import { Input, Box, Button, Heading, Text, VStack, Icon, Flex } from '@chakra-ui/react';
 import { FaUser } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UsernameContext } from '../../context/UsernameContext';
 
 export default function UserNameForm({ onSubmit }) {
-  const [username, setUsername] = useState('');
+  const { username, setUsername } = useContext(UsernameContext);
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
@@ -13,12 +14,11 @@ export default function UserNameForm({ onSubmit }) {
     if (username.length >= 2) {
       setMessage(`¡Pom te da la bienvenida, ${username}!`);
       onSubmit(username); // Enviar el username al componente padre
-      setUsername('');
+      // setUsername(''); // No limpiar el username aquí
     } else {
       setMessage('El nombre de usuario debe tener al menos 2 caracteres.');
     }
   };
-
 
   useEffect(() => {
     if (message.includes('bienvenida')) {
