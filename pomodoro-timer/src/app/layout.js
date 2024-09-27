@@ -1,10 +1,10 @@
 import { Outfit } from 'next/font/google';
 import './globals.css';
 import Navbar from '../../components/ui/Navbar';
-import { ChakraProvider } from '@chakra-ui/react'; // Asegúrate de importar ChakraProvider
+import { ChakraProvider, Box } from '@chakra-ui/react'; // Importar Box de Chakra UI
 import Footer from '../../components/ui/Footer';
 import { UsernameProvider } from '../../context/UsernameContext';
-import { TaskProvider } from '../../context/TaskContext'; // Importar el TaskProvider
+import { TaskProvider } from '../../context/TaskContext';
 import FAQsPage from '../../pages/faqspage';
 
 const outfit = Outfit({ subsets: ['latin'] });
@@ -19,13 +19,13 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className={`${outfit.className} flex`}>
         <UsernameProvider>
-          <TaskProvider> {/* Envolver con TaskProvider */}
+          <TaskProvider>
             <ChakraProvider>
-              <Navbar /> {/* Aquí va el Navbar */}
-              <main className="flex-1 ml-64"> {/* Ajusta el margin-left según el diseño */}
+              <Navbar />
+              <Box as="main" className="flex-1" ml={{ base: 0, md: 64 }} p={4}> {/* Ajusta el margin-left y padding */}
                 {children}
-                <FAQsPage /> {/* Asegúrate de que FAQsPage esté en la posición correcta */}
-              </main>
+                <FAQsPage />
+              </Box>
               <Footer />
             </ChakraProvider>
           </TaskProvider>

@@ -28,7 +28,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300">
+    <div className="bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300 min-h-screen flex flex-col">
       <Navbar onLeave={handleLeave} /> 
 
       {showSessionEnd ? (
@@ -36,11 +36,11 @@ const Home = () => {
       ) : !userData ? ( 
         <Onboarding onComplete={handleOnboardingComplete} />
       ) : (
-        <>
+        <div className="flex flex-col items-center p-4 md:flex-row md:justify-around">
           <UserCard username={userData.username} activity={userData.activity} /> 
           <TimerDisplay username={userData.username} activity={userData.activity} />
           <BreakTimeModal />
-        </>
+        </div>
       )}
     </div>
   );

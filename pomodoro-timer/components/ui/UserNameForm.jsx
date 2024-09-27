@@ -33,8 +33,22 @@ export default function UserNameForm({ onSubmit }) {
   }, [message]);
 
   return (
-    <Box position="relative" width="100%" maxWidth="400px" margin="auto" padding={6} borderRadius="lg" boxShadow="xl">
-      <Box position="absolute" top="-20px" left="50%" transform="translateX(-50%)" p={4}>
+    <Box
+      position="relative"
+      width={{ base: "90%", md: "80%", lg: "60%" }}
+      maxWidth="400px"
+      margin="auto"
+      padding={6}
+      borderRadius="lg"
+      boxShadow="xl"
+    >
+      <Box
+        position="absolute"
+        top="-20px"
+        left="50%"
+        transform="translateX(-50%)"
+        p={4}
+      >
         <Icon as={FaUser} w={5} h={5} color="purple.500" />
       </Box>
 
