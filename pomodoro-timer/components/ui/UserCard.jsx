@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { TaskContext } from '../../context/TaskContext'; // Importar el contexto
 
 // Lista de URLs de imágenes
 const imageUrls = [
@@ -11,11 +12,11 @@ const imageUrls = [
   'https://images.pexels.com/photos/5617166/pexels-photo-5617166.jpeg'
 ];
 
-const UserCard = ({ username, activity }) => {
+const UserCard = ({ username }) => {
   const [randomImage, setRandomImage] = useState('');
+  const { dailyActivity } = useContext(TaskContext); // Usar el contexto
 
   useEffect(() => {
-
     const image = imageUrls[Math.floor(Math.random() * imageUrls.length)];
     setRandomImage(image);
   }, []);
@@ -31,7 +32,7 @@ const UserCard = ({ username, activity }) => {
       </div>
       <div className="ml-4">
         <h2 className="text-lg font-semibold text-gray-700">{username}</h2>
-        <p className="text-sm text-blue-500 mt-1">{activity ? `está en una sesión de ${activity.toLowerCase()}` : 'está en la sesión'}</p>
+        <p className="text-sm text-blue-500 mt-1">{dailyActivity ? `está en una sesión de ${dailyActivity.toLowerCase()}` : 'está en la sesión'}</p>
       </div>
     </div>
   );

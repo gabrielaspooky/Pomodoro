@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Dumbbell, GraduationCap, Laptop, Plus, Check, X } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { TaskContext } from '../../context/TaskContext' // Importar el contexto
 
 const activities = [
   { name: 'Ejercicio', icon: Dumbbell },
@@ -13,6 +14,7 @@ const activities = [
 ]
 
 export default function SetDailyTask({ onActivitySelect }) {
+  const { setDailyActivity } = useContext(TaskContext); // Usar el contexto
   const [customActivity, setCustomActivity] = useState('')
   const [isCustom, setIsCustom] = useState(false)
   const [selectedActivity, setSelectedActivity] = useState(null)
@@ -25,6 +27,7 @@ export default function SetDailyTask({ onActivitySelect }) {
   const handleActivitySelection = (activity) => {
     if (activity.trim()) {
       setSelectedActivity(activity)
+      setDailyActivity(activity) // Actualizar el contexto
       onActivitySelect(activity)
     }
   }

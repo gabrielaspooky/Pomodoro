@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 import { ToastContainer } from 'react-toastify';
 import UserCard from './UserCard';
@@ -8,11 +8,12 @@ import UserLeftToast from './LeaveToast';
 import MemoryMatch from './MemoryMatch';
 import Pom from './Pom';
 import BreakTimeModal from './BreakTimeModal';
-import { useContext } from 'react';
 import { UsernameContext } from '../../context/UsernameContext';
+import { TaskContext } from '../../context/TaskContext'; // Importar el contexto
 
 const PomodoroTimer = () => {
   const { username } = useContext(UsernameContext);
+  const { dailyActivity } = useContext(TaskContext); // Usar el contexto
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
